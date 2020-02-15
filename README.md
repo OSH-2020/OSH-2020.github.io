@@ -9,7 +9,7 @@
 
 ## Announcements
 
-- 暂无
+- Feb 15, 2020: 课程交流 QQ 群组：1055162953。
 
 ## Coursework
 
