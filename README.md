@@ -2,7 +2,7 @@
 
 ## Course Info
 
-- Meeting time: **Monday 14:00~15:35** and **Wednesday 9:45~11:20**
+- Meeting time: **Monday 15:55~17:30** and **Wednesday 9:45~11:20**
 - Classroom: **3A407**
 - Instructor: [**邢凯**](mailto:kxing@ustc.edu.cn)
 - Teaching Assistants: [**付佳伟**](mailto:osh@ibugone.com)、[**陶柯宇**](mailto:taoky@mail.ustc.edu.cn)、[**彭定澜**](mailto:pengdinglan@mail.ustc.edu.cn)
