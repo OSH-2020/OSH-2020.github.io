@@ -15,4 +15,5 @@ markdown_extensions:
 
 nav:
   - 首页: README.md
+  - Lab 1: lab-1/README.md
   - FAQ: faq/README.md
