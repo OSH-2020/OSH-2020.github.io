@@ -1,0 +1,18 @@
+site_name: OS (H) 2020 课程主页
+
+theme:
+  name: 'material'
+  language: 'zh'
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - codehilite
+  - footnotes
+  - pymdownx.details
+  - pymdownx.superfences
+  - markdown.extensions.def_list
+
+nav:
+  - 首页: index.md
+  - FAQ: faq/index.md

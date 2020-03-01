@@ -1,0 +1,45 @@
+name: build
+
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/setup-python@v1
+      with:
+        python-version: 3.8
+    - name: Setup cache for PyPI
+      uses: actions/cache@v1
+      id: cache-pip
+      with:
+        path: env/
+        key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+        restore-keys: ""
+    - name: Create venv and Install dependencies
+      if: steps.cache-pip.outputs.cache-hit != 'true'
+      run: |
+        python3 -m venv env
+        env/bin/pip3 install -r requirements.txt
+    - name: Prepare build source
+      run: |
+        mkdir -p docs/
+        find -maxdepth 1 -not -name docs -print0 | xargs -0rI % mv % docs/
+        (cd docs/; mv .git .github mkdocs.yml ../)  # Move some stuff back
+        find docs/ -name README.md -print0 | xargs -0r rename.ul index.md README.md
+    - name: Build docs
+      run: |
+        env/bin/mkdocs -v build
+        : > site/.nojekyll
+    - name: Deploy to GitHub Pages
+      run: |
+        git clone --depth=1 --branch=gh-pages --single-branch --no-checkout \
+          "https://${GITHUB_ACTOR}:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git" test
+        mv test/.git site/.git && rmdir test/
+        pushd site/ &>/dev/null
+        git add -A
+        git -c user.name=GitHub -c user.email=noreply@github.com commit \
+          -m 'Auto deploy from GitHub Actions'
+        git push
+        popd &>/dev/null
