@@ -42,7 +42,7 @@ sudo apt install git \
 │   ├── linux
 │   │   ├── bzImage
 │   │   ├── initrd.cpio.gz
-|   │   └── .config       //（可选）
+│   │   └── .config       //（可选）
 │   └── mbr
 │       └── mbr.asm
 ├── .gitignore            // 使用此文件忽略你不想提交的文件   
