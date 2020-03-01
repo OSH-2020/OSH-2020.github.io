@@ -1,0 +1,896 @@
+
+
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.4.0">
+    
+    
+      
+        <title>准备 rootfs - Operating Systems (H) 2020 Spring</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.fe0cca5b.min.css">
+      
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="https://101.ustclug.org/css/extra.css">
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="../.." title="Operating Systems (H) 2020 Spring" class="md-header-nav__button md-logo" aria-label="Operating Systems (H) 2020 Spring">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            Operating Systems (H) 2020 Spring
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              准备 rootfs
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/OSH-2020/OSH-2020.github.io/" title="前往 GitHub 仓库" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    OSH-2020/OSH-2020.github.io
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Operating Systems (H) 2020 Spring" class="md-nav__button md-logo" aria-label="Operating Systems (H) 2020 Spring">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Operating Systems (H) 2020 Spring
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/OSH-2020/OSH-2020.github.io/" title="前往 GitHub 仓库" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    OSH-2020/OSH-2020.github.io
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="首页" class="md-nav__link">
+      首页
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../x/" title="大作业" class="md-nav__link">
+      大作业
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      实验一
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="实验一" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        实验一
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../lab-1/" title="介绍" class="md-nav__link">
+      介绍
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../lab-1/linux/" title="Linux 的安装与使用" class="md-nav__link">
+      Linux 的安装与使用
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../lab-1/git/" title="学习使用 Git" class="md-nav__link">
+      学习使用 Git
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../lab-1/github/" title="学习 GitHub 的简单使用，搭建实验私有仓库" class="md-nav__link">
+      学习 GitHub 的简单使用，搭建实验私有仓库
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../lab-1/kernel/" title="编译 Linux 内核并在 QEMU 中测试" class="md-nav__link">
+      编译 Linux 内核并在 QEMU 中测试
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../lab-1/initrd/" title="构建初始内存盘 (initrd, init ram disk)" class="md-nav__link">
+      构建初始内存盘 (initrd, init ram disk)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../lab-1/mbr/" title="使用汇编语言，编写 x86 裸金属 (bare-metal) 程序" class="md-nav__link">
+      使用汇编语言，编写 x86 裸金属 (bare-metal) 程序
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../lab-2/" title="实验二" class="md-nav__link">
+      实验二
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../lab-3/" title="实验三" class="md-nav__link">
+      实验三
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6" checked>
+    
+    <label class="md-nav__link" for="nav-6">
+      实验四
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="实验四" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        实验四
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../" title="介绍" class="md-nav__link">
+      介绍
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        准备 rootfs
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9h14V7H3v2m0 4h14v-2H3v2m0 4h14v-2H3v2m16 0h2v-2h-2v2m0-10v2h2V7h-2m0 6h2v-2h-2v2z"/></svg>
+        </span>
+      </label>
+    
+    <a href="./" title="准备 rootfs" class="md-nav__link md-nav__link--active">
+      准备 rootfs
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#rootfs" class="md-nav__link">
+    构建容器的根文件系统（rootfs）
+  </a>
+  
+    <nav class="md-nav" aria-label="构建容器的根文件系统（rootfs）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#init-busybox" class="md-nav__link">
+    自己编写 init 程序与使用 BusyBox 构建根文件系统
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lxc" class="md-nav__link">
+    从 LXC 镜像库下载容器镜像
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chroot-systemd-nspawn" class="md-nav__link">
+    使用 chroot 与 systemd-nspawn 体验隔离环境与容器技术
+  </a>
+  
+    <nav class="md-nav" aria-label="使用 chroot 与 systemd-nspawn 体验隔离环境与容器技术">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#systemd-nspawn" class="md-nav__link">
+    systemd-nspawn
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#systemd-nspawn_1" class="md-nav__link">
+    使用 systemd-nspawn 启动一个容器
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    准备你的容器
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    参考资料
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    示例程序
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../namespaces/" title="隔离命名空间" class="md-nav__link">
+      隔离命名空间
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../mounts/" title="挂载文件系统" class="md-nav__link">
+      挂载文件系统
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../pivot_root/" title="使用 pivot_root" class="md-nav__link">
+      使用 pivot_root
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../capabilities/" title="限制 capabilities" class="md-nav__link">
+      限制 capabilities
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../seccomp/" title="过滤系统调用" class="md-nav__link">
+      过滤系统调用
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../cgroup/" title="限制系统资源" class="md-nav__link">
+      限制系统资源
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../faq/" title="FAQ" class="md-nav__link">
+      FAQ
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#rootfs" class="md-nav__link">
+    构建容器的根文件系统（rootfs）
+  </a>
+  
+    <nav class="md-nav" aria-label="构建容器的根文件系统（rootfs）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#init-busybox" class="md-nav__link">
+    自己编写 init 程序与使用 BusyBox 构建根文件系统
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lxc" class="md-nav__link">
+    从 LXC 镜像库下载容器镜像
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chroot-systemd-nspawn" class="md-nav__link">
+    使用 chroot 与 systemd-nspawn 体验隔离环境与容器技术
+  </a>
+  
+    <nav class="md-nav" aria-label="使用 chroot 与 systemd-nspawn 体验隔离环境与容器技术">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#systemd-nspawn" class="md-nav__link">
+    systemd-nspawn
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#systemd-nspawn_1" class="md-nav__link">
+    使用 systemd-nspawn 启动一个容器
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    准备你的容器
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    参考资料
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    示例程序
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/OSH-2020/OSH-2020.github.io/edit/master/docs/lab-4/rootfs/README.md" title="编辑此页" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  
+                
+                
+                <h1 id="_1">准备你的容器环境<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<h2 id="rootfs">构建容器的根文件系统（rootfs）<a class="headerlink" href="#rootfs" title="Permanent link">&para;</a></h2>
+<p>容器的根文件系统和完整操作系统的根文件系统并无太大区别，都包含了一个完整的操作系统目录结构和必要的文件。下面介绍三种构建容器根文件系统的方式。</p>
+<p><strong>本次实验推荐使用 LXC 镜像。</strong></p>
+<h3 id="init-busybox">自己编写 init 程序与使用 BusyBox 构建根文件系统<a class="headerlink" href="#init-busybox" title="Permanent link">&para;</a></h3>
+<p><a href="../../lab-1/initrd/">实验一中</a>介绍的两种构建初始内存盘（initrd）的方式在这里可以直接使用。唯一的区别是，在将文件放置妥当后，你不再需要将它们打包为 <code>initrd.cpio.gz</code> 文件，而是可以在容器中直接使用。如果你准备采用这两种方式，可以直接阅读实验一文档的相关章节。</p>
+<h3 id="lxc">从 LXC 镜像库下载容器镜像<a class="headerlink" href="#lxc" title="Permanent link">&para;</a></h3>
+<p><a href="https://linuxcontainers.org/">Linux Containers</a>（LXC）是一个系统容器实现，其使用 Linux 的容器技术运行完整的 Linux 子系统。由于容器直接使用主机的内核，没有了虚拟化中间层，与传统虚拟机（KVM, VMware）相比更轻便。</p>
+<p>LXC 提供了多种操作系统镜像，你可以从 <a href="https://images.linuxcontainers.org/images/">https://images.linuxcontainers.org/images/</a> 直接选择下载（请下载 amd64 架构下 <code>default</code> 中的 <code>rootfs.tar.gz</code> 或 <code>rootfs.tar.xz</code> 文件）。不同的 Linux 发行版镜像不影响本实验的后续内容，但如果你不了解它们的区别的话，我们推荐 <a href="https://images.linuxcontainers.org/images/ubuntu/bionic/amd64/default/">Ubuntu 18.04</a>、<a href="https://images.linuxcontainers.org/images/ubuntu/focal/amd64/default/">Ubuntu 20.04</a> 或 <a href="https://images.linuxcontainers.org/images/debian/buster/amd64/default/">Debian Buster</a> 的镜像。</p>
+<p>下载到的打包 rootfs 文件只需要解压到一个新的目录即可：</p>
+<div class="highlight"><pre><span></span><code>mkdir rootfs/
+<span class="nb">cd</span> rootfs/
+tar zxf ../rootfs.tar.gz  <span class="c1"># 或 tar Jxf ../rootfs.tar.xz</span>
+</code></pre></div>
+
+<p>Vlab 平台的虚拟机即是 LXC 系统容器，但本实验不对 LXC 的实现作过多探究。</p>
+<h2 id="chroot-systemd-nspawn">使用 chroot 与 systemd-nspawn 体验隔离环境与容器技术<a class="headerlink" href="#chroot-systemd-nspawn" title="Permanent link">&para;</a></h2>
+<p>chroot 是一个用于限制进程可以看见的 root 目录（根目录）的机制。在 chroot 之后产生的所有子进程，在正常情况下是无法看见 chroot 目录以外的内容的。尽管实际的容器并不使用 chroot（后面会讲到），理解它仍然是理解容器原理的重要的一步。</p>
+<p>在你准备好的 BusyBox 或 LXC 系统镜像目录中运行 <code>chroot . /bin/sh</code> 或 <code>chroot . /bin/bash</code>，即可 chroot 进入这个系统镜像并对文件系统进行一些操作。如果你使用 LXC 镜像，你甚至可以在这里进行 <code>apt update</code> 等包管理操作。</p>
+<p>这只是一个非常简单基础的隔离。root 用户可以轻易脱离不加额外限制的 chroot 监狱，并且 chroot 不阻止其他访问系统资源或其他进程的方式（你可以试试在 chroot 环境下执行 <code>reboot</code>——注意保存未完成的工作）。</p>
+<h3 id="systemd-nspawn">systemd-nspawn<a class="headerlink" href="#systemd-nspawn" title="Permanent link">&para;</a></h3>
+<p>作为一个对比，systemd-nspawn 是一个最小化但完整的容器实现。你可以使用软件包管理器安装 <code>systemd-container</code> 来获得 <code>systemd-nspawn</code> 命令。</p>
+<p>systemd-nspawn 的用法与 chroot 类似，首先 <code>cd</code> 到存有容器系统镜像的目录，然后运行 <code>systemd-nspawn</code>，你就可以得到一个 shell。尽管这个 shell 看起来与 chroot 中的 shell 没有什么区别，但是尝试使用某些命令就会发行明显的不同。下面列出几个例子，你可以自己分别在 systemd-nspawn 中和 chroot 中运行并比较：</p>
+<div class="highlight"><pre><span></span><code>reboot
+mount  <span class="c1"># 查看挂载点</span>
+dd <span class="k">if</span><span class="o">=</span>/dev/sda <span class="nv">of</span><span class="o">=</span><span class="nb">test</span> <span class="nv">bs</span><span class="o">=</span>64k <span class="nv">count</span><span class="o">=</span><span class="m">1</span>  <span class="c1"># 尝试访问设备文件</span>
+<span class="nb">echo</span> <span class="nv">$$</span>  <span class="c1"># 检查 shell 本身的 PID</span>
+</code></pre></div>
+
+<div class="admonition note">
+<p class="admonition-title">错误处理</p>
+<p>如果你使用 systemd-nspawn 时遇到了下面这个报错:</p>
+<div class="highlight"><pre><span></span><code>Failed to read machine ID from container image: Invalid argument
+</code></pre></div>
+
+<p>请向容器镜像中的 <code>/etc/machine-id</code> 文件写入一个 machine ID 字符串（使用以下命令），然后重新尝试运行.</p>
+<div class="highlight"><pre><span></span><code>$ systemd-machine-id-setup --root<span class="o">=</span>容器的rootfs路径
+</code></pre></div>
+
+<p>对于 Ubuntu 20.04（或其他任何运行 systemd 240 或以上版本的系统），也可以使用新的命令</p>
+<div class="highlight"><pre><span></span><code>$ systemd-id128 new &gt; etc/machine-id
+</code></pre></div>
+
+</div>
+<h3 id="systemd-nspawn_1">使用 systemd-nspawn 启动一个容器<a class="headerlink" href="#systemd-nspawn_1" title="Permanent link">&para;</a></h3>
+<p>与 chroot 不同，systemd-nspawn 作为一个完整的容器实现，是可以启动容器中的操作系统的。方便起见，这一步推荐使用 <strong>LXC 镜像</strong>。</p>
+<p>为了确保你能够登录进容器系统中的用户，首先需要为 root 用户设置密码（或者清除密码）。使用 chroot 或 systemd-nspawn 进入容器的根文件系统，运行 <code>passwd root</code> 设置密码或 <code>passwd -d root</code> 清除密码，然后退出这个 shell。</p>
+<p>再次使用 systemd-nspawn 将这个文件系统作为容器运行，不过这一次加上 <code>--boot</code> 参数。该参数会让 systemd-nspawn 尝试运行文件系统中的 init 程序（而不是一个 shell），从而“启动”这个文件系统中的操作系统。看到提示后，你就可以输入用户名 root 和密码登录进系统了，你甚至可以 <code>poweroff</code> 或 <code>reboot</code> 这个容器中的系统而不用担心会导致主机被关机或重启。</p>
+<p><img alt="" src="../images/nspawn-boot.png" /></p>
+<h2 id="_2">准备你的容器<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>在你准备好 rootfs 之后，可以将本页底部助教编写的一个示例程序保存为 <code>main.c</code> 并编译运行它：</p>
+<div class="highlight"><pre><span></span><code>gcc -o lab4 main.c
+./lab4 rootfs/ /bin/bash
+</code></pre></div>
+
+<p>这时候你就能看到一个“容器”中的 shell 了。当然了，这里的“容器”加上了双引号是因为它仅仅是一个 chroot 程序，因此接下来的任务就是对这个程序进行修改升级（你也可以选择自己从头编写一个）。</p>
+<h2 id="_3">参考资料<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://wiki.debian.org/chroot">chroot - Debian Wiki</a></li>
+<li><a href="https://wiki.debian.org/nspawn">nspawn - Debian Wiki</a></li>
+</ul>
+<h2 id="_4">示例程序<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt; // For wait(2)</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;sys/wait.h&gt;  // For wait(2)</span><span class="cp"></span>
+
+<span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">usage</span> <span class="o">=</span>
+<span class="s">&quot;Usage: %s &lt;directory&gt; &lt;command&gt; [args...]</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="s">&quot;  Run &lt;directory&gt; as a container and execute &lt;command&gt;.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="nf">error_exit</span><span class="p">(</span><span class="kt">int</span> <span class="n">code</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">message</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">perror</span><span class="p">(</span><span class="n">message</span><span class="p">);</span>
+    <span class="n">_exit</span><span class="p">(</span><span class="n">code</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="n">usage</span><span class="p">,</span> <span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+        <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">chdir</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">error_exit</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+
+    <span class="kt">pid_t</span> <span class="n">pid</span> <span class="o">=</span> <span class="n">fork</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">pid</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// Child goes for target program</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">chroot</span><span class="p">(</span><span class="s">&quot;.&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">error_exit</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s">&quot;chroot&quot;</span><span class="p">);</span>
+        <span class="n">execvp</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">argv</span> <span class="o">+</span> <span class="mi">2</span><span class="p">);</span>
+        <span class="n">error_exit</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="s">&quot;exec&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Parent waits for child</span>
+    <span class="kt">int</span> <span class="n">status</span><span class="p">,</span> <span class="n">ecode</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">wait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">status</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">WIFEXITED</span><span class="p">(</span><span class="n">status</span><span class="p">))</span> <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Exited with status %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">WEXITSTATUS</span><span class="p">(</span><span class="n">status</span><span class="p">));</span>
+        <span class="n">ecode</span> <span class="o">=</span> <span class="n">WEXITSTATUS</span><span class="p">(</span><span class="n">status</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">WIFSIGNALED</span><span class="p">(</span><span class="n">status</span><span class="p">))</span> <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Killed by signal %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">WTERMSIG</span><span class="p">(</span><span class="n">status</span><span class="p">));</span>
+        <span class="n">ecode</span> <span class="o">=</span> <span class="o">-</span><span class="n">WTERMSIG</span><span class="p">(</span><span class="n">status</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">ecode</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../" title="介绍" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  上一页
+                </span>
+                介绍
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../namespaces/" title="隔离命名空间" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  下一页
+                </span>
+                隔离命名空间
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/vendor.d710d30a.min.js"></script>
+      <script src="../../assets/javascripts/bundle.b39636ac.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../..",
+          features: [],
+          search: Object.assign({
+            worker: "../../assets/javascripts/worker/search.a68abb33.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>

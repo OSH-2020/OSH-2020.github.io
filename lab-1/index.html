@@ -1,0 +1,800 @@
+
+
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.4.0">
+    
+    
+      
+        <title>介绍 - Operating Systems (H) 2020 Spring</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.fe0cca5b.min.css">
+      
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="https://101.ustclug.org/css/extra.css">
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#lab-1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href=".." title="Operating Systems (H) 2020 Spring" class="md-header-nav__button md-logo" aria-label="Operating Systems (H) 2020 Spring">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            Operating Systems (H) 2020 Spring
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              介绍
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/OSH-2020/OSH-2020.github.io/" title="前往 GitHub 仓库" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    OSH-2020/OSH-2020.github.io
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Operating Systems (H) 2020 Spring" class="md-nav__button md-logo" aria-label="Operating Systems (H) 2020 Spring">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Operating Systems (H) 2020 Spring
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/OSH-2020/OSH-2020.github.io/" title="前往 GitHub 仓库" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    OSH-2020/OSH-2020.github.io
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." title="首页" class="md-nav__link">
+      首页
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../x/" title="大作业" class="md-nav__link">
+      大作业
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+    
+    <label class="md-nav__link" for="nav-3">
+      实验一
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="实验一" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        实验一
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        介绍
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9h14V7H3v2m0 4h14v-2H3v2m0 4h14v-2H3v2m16 0h2v-2h-2v2m0-10v2h2V7h-2m0 6h2v-2h-2v2z"/></svg>
+        </span>
+      </label>
+    
+    <a href="./" title="介绍" class="md-nav__link md-nav__link--active">
+      介绍
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    开始之前的准备
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    实验内容
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    实验要求
+  </a>
+  
+    <nav class="md-nav" aria-label="实验要求">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    思考题
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="linux/" title="Linux 的安装与使用" class="md-nav__link">
+      Linux 的安装与使用
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="git/" title="学习使用 Git" class="md-nav__link">
+      学习使用 Git
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="github/" title="学习 GitHub 的简单使用，搭建实验私有仓库" class="md-nav__link">
+      学习 GitHub 的简单使用，搭建实验私有仓库
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="kernel/" title="编译 Linux 内核并在 QEMU 中测试" class="md-nav__link">
+      编译 Linux 内核并在 QEMU 中测试
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="initrd/" title="构建初始内存盘 (initrd, init ram disk)" class="md-nav__link">
+      构建初始内存盘 (initrd, init ram disk)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="mbr/" title="使用汇编语言，编写 x86 裸金属 (bare-metal) 程序" class="md-nav__link">
+      使用汇编语言，编写 x86 裸金属 (bare-metal) 程序
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../lab-2/" title="实验二" class="md-nav__link">
+      实验二
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../lab-3/" title="实验三" class="md-nav__link">
+      实验三
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      实验四
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="实验四" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        实验四
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../lab-4/" title="介绍" class="md-nav__link">
+      介绍
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../lab-4/rootfs/" title="准备 rootfs" class="md-nav__link">
+      准备 rootfs
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../lab-4/namespaces/" title="隔离命名空间" class="md-nav__link">
+      隔离命名空间
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../lab-4/mounts/" title="挂载文件系统" class="md-nav__link">
+      挂载文件系统
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../lab-4/pivot_root/" title="使用 pivot_root" class="md-nav__link">
+      使用 pivot_root
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../lab-4/capabilities/" title="限制 capabilities" class="md-nav__link">
+      限制 capabilities
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../lab-4/seccomp/" title="过滤系统调用" class="md-nav__link">
+      过滤系统调用
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../lab-4/cgroup/" title="限制系统资源" class="md-nav__link">
+      限制系统资源
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../faq/" title="FAQ" class="md-nav__link">
+      FAQ
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    开始之前的准备
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    实验内容
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    实验要求
+  </a>
+  
+    <nav class="md-nav" aria-label="实验要求">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    思考题
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/OSH-2020/OSH-2020.github.io/edit/master/docs/lab-1/README.md" title="编辑此页" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  
+                
+                
+                <h1 id="lab-1">Lab 1<a class="headerlink" href="#lab-1" title="Permanent link">&para;</a></h1>
+<h2 id="_1">开始之前的准备<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="linux/">Linux 的安装与使用</a></li>
+<li><a href="git/">学习使用 Git</a></li>
+<li><a href="github/">学习 GitHub 的简单使用，搭建实验私有仓库</a></li>
+</ul>
+<p>然后你需要安装 <code>qemu</code>，以及其他一些开发需要的组件。以 Ubuntu 18.04 为例：</p>
+<div class="highlight"><pre><span></span><code>sudo apt install git <span class="se">\</span>
+  qemu-system-x86 build-essential flex bison bc <span class="se">\</span>
+  ncurses-dev libssl-dev libelf-dev <span class="se">\</span>
+  nasm
+</code></pre></div>
+
+<p>注意：</p>
+<ul>
+<li>关于工具与系统的使用只需要比较基础的用法即可。</li>
+<li>推荐在本次实验中尝试熟悉 Linux 环境，为后续实验做好准备。</li>
+</ul>
+<h2 id="_2">实验内容<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>你需要阅读以下内容，并且按照「实验要求」部分来完成。</p>
+<ul>
+<li><a href="kernel/">编译 Linux 内核并在 QEMU 中测试</a></li>
+<li><a href="initrd/">构建初始内存盘 (initrd, init ram disk)</a></li>
+<li><a href="mbr/">使用汇编语言，编写 x86 裸金属 (bare-metal) 程序</a></li>
+</ul>
+<p>助教提供的三个测试程序：<a href="binaries.zip">binaries.zip</a></p>
+<h2 id="_3">实验要求<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>请按照以下目录结构组织你的 GitHub 仓库：</p>
+<div class="highlight"><pre><span></span><code>.                         // Git 根目录
+├── lab1                  // 实验一根目录
+│   ├── docs              // 实验一实验报告根目录
+│   │   └── *.md          // 文件名自拟，可以写在一个或多个 Markdown 文件中
+│   ├── linux
+│   │   ├── bzImage
+│   │   ├── initrd.cpio.gz
+│   │   └── .config       //（可选）
+│   └── mbr
+│       └── mbr.asm
+├── .gitignore            // 使用此文件忽略你不想提交的文件   
+└── README.md             // 整个仓库的 README 文件，可以将姓名学号写在其中
+</code></pre></div>
+
+<p>本次实验满分 10 分。你需要完成：</p>
+<ul>
+<li>关于 Git 与 GitHub 仓库：<ul>
+<li>正确创建了仓库，助教可访问，且<strong>仓库权限为私有 (private)</strong>。（<strong>必须完成</strong>）</li>
+<li>Git 记录能够清晰显示你的实验进度，没有出现以下的情况。（1 分）<ul>
+<li>很大一部分的 commit 由 GitHub 网页版生成，即通过网页版文件上传的方式提交实验的文件。</li>
+<li>只有一个，或两三个 commit。</li>
+<li>上传了大量与实验要求无关的文件，没有设置 <code>.gitignore</code>。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>关于 Linux 内核：<ul>
+<li>正确编译了内核，并将编译出的 <code>arch/x86/boot/bzImage</code> 放在你的仓库中的 <code>lab1/linux/</code> 下面。（1 分）</li>
+<li>你裁剪了内核，裁剪得到的内核大小不超过 8 MiB (= 8388608 bytes)，并且它可以完成以下「关于 <code>initrd</code> 与 <code>init</code> 程序」中的全部任务。（1 分）<ul>
+<li>如果你没有完成「关于 <code>initrd</code> 与 <code>init</code> 程序」中的全部任务，助教会使用自己的 <code>initrd</code> 进行测试。</li>
+</ul>
+</li>
+<li>在上一条的基础上，裁剪得到的内核大小不超过 4 MiB (= 4194304 bytes)。（0.5 分）</li>
+</ul>
+</li>
+<li>关于 <code>initrd</code> 与 <code>init</code> 程序：<ul>
+<li>构造了格式正确的 <code>initrd.cpio.gz</code> 文件，并将对应文件放在你的仓库中的 <code>lab1/linux/initrd.cpio.gz</code>。（0.5 分）</li>
+<li>使用你编译的内核和 <code>initrd.cpio.gz</code>，其中的 <code>/init</code> 能够成功执行助教提供的程序 1。（0.5 分）</li>
+<li>(*) 使用你编译的内核和 <code>initrd.cpio.gz</code>，其中的 <code>/init</code> 能够成功依次执行助教提供的程序 1、2、3，并且程序 3 执行完成后不出现内核恐慌 (Kernel Panic)。（1.5 分）</li>
+</ul>
+</li>
+<li>关于 x86 裸金属 MBR 程序：<ul>
+<li>汇编源文件在仓库中的 <code>lab1/mbr/mbr.asm</code> 下，源文件汇编得到的二进制文件可以在 QEMU 环境下向屏幕输出文字。（1 分）</li>
+<li>(*) 汇编程序能够首先清空屏幕，之后每隔大约 1 秒（不需要非常精确），向屏幕上输出一行文字。（1.5 分）</li>
+</ul>
+</li>
+<li>思考题：<ul>
+<li>在下面给出的思考题中任选 4 道并完成它们。（1.5 分）</li>
+</ul>
+</li>
+</ul>
+<p>对于含 (*) 程序的运行参考效果，助教录制了视频，放在了 <a href="https://www.bilibili.com/video/av92882690/">B 站</a>和 <a href="https://www.youtube.com/watch?v=F_Qlz-9I3A8">YouTube</a> 上。</p>
+<p><strong>注意：你需要写实验报告，并且报告需要要点齐全。在要点齐全的情况下可以精简，可以描述你在完成实验时遇到的问题与解决方法，也可以提供建议等。如果对以上每个给分大项（除 Git 相关内容外）没有对应的实验报告，你可能不会得到这一部分的分数。</strong></p>
+<h3 id="_4">思考题<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<ol>
+<li>在使用 <code>make menuconfig</code> 调整 Linux 编译选项的时候，你会看到有些选项是使用 <code>[M]</code> 标记的。它们是什么意思？在你的 <code>init</code> 启动之前的整个流程中它们会被加载吗？如果不，在正常的 Linux 系统中，它们是怎么被加载的？</li>
+<li>在「构建 <code>initrd</code>」的教程中我们创建了一个示例的 init 程序。为什么屏幕上输出 "Hello, Linux!" 之后，Linux 内核就立刻 kernel panic 了？</li>
+<li>为什么我们编写 C 语言版本的 <code>init</code> 程序在编译时需要静态链接？我们能够在这里使用动态链接吗？</li>
+<li>在 Vlab 平台上，即使是真正的 root 也无法使用 <code>mknod</code> 等命令，查找资料，尝试简要说明为什么 fakeroot 环境却能够正常使用这些命令。</li>
+<li>在介绍 BusyBox 的一节，我们发现 <code>init</code> 程序可以是一段第一行是 <code>#!/bin/sh</code> 的 shell 脚本。尝试解释为什么它可以作为系统第一个启动的程序，并且说明这样做需要什么条件。</li>
+<li>我们的 MBR 样例程序使用了 BIOS 调用 (<code>int 0x10</code>) 以显示文本。Linux 的 <code>init</code> 程序也可以用这种办法输出文本吗？为什么？</li>
+<li>MBR 能够用于编程的部分只有 510 字节，而目前的系统引导器（如 GRUB2）可以实现很多复杂的功能：如从不同的文件系统中读取文件、引导不同的系统启动、提供美观的引导选择界面等，用 510 字节显然是无法做到这些功能的。它们是怎么做到的？</li>
+<li>目前，越来越多的 PC 使用 UEFI 启动。请简述使用 UEFI 时系统启动的流程，并与传统 BIOS 的启动流程比较。</li>
+</ol>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../x/" title="大作业" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  上一页
+                </span>
+                大作业
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="linux/" title="Linux 的安装与使用" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  下一页
+                </span>
+                Linux 的安装与使用
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/vendor.d710d30a.min.js"></script>
+      <script src="../assets/javascripts/bundle.b39636ac.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c"}</script>
+      
+      <script>
+        app = initialize({
+          base: "..",
+          features: [],
+          search: Object.assign({
+            worker: "../assets/javascripts/worker/search.a68abb33.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>

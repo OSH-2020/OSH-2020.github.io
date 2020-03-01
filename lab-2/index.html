@@ -1,0 +1,1118 @@
+
+
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.4.0">
+    
+    
+      
+        <title>实验二 - Operating Systems (H) 2020 Spring</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.fe0cca5b.min.css">
+      
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="https://101.ustclug.org/css/extra.css">
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#lab-2" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href=".." title="Operating Systems (H) 2020 Spring" class="md-header-nav__button md-logo" aria-label="Operating Systems (H) 2020 Spring">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            Operating Systems (H) 2020 Spring
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              实验二
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/OSH-2020/OSH-2020.github.io/" title="前往 GitHub 仓库" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    OSH-2020/OSH-2020.github.io
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Operating Systems (H) 2020 Spring" class="md-nav__button md-logo" aria-label="Operating Systems (H) 2020 Spring">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Operating Systems (H) 2020 Spring
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/OSH-2020/OSH-2020.github.io/" title="前往 GitHub 仓库" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    OSH-2020/OSH-2020.github.io
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." title="首页" class="md-nav__link">
+      首页
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../x/" title="大作业" class="md-nav__link">
+      大作业
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      实验一
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="实验一" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        实验一
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../lab-1/" title="介绍" class="md-nav__link">
+      介绍
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../lab-1/linux/" title="Linux 的安装与使用" class="md-nav__link">
+      Linux 的安装与使用
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../lab-1/git/" title="学习使用 Git" class="md-nav__link">
+      学习使用 Git
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../lab-1/github/" title="学习 GitHub 的简单使用，搭建实验私有仓库" class="md-nav__link">
+      学习 GitHub 的简单使用，搭建实验私有仓库
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../lab-1/kernel/" title="编译 Linux 内核并在 QEMU 中测试" class="md-nav__link">
+      编译 Linux 内核并在 QEMU 中测试
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../lab-1/initrd/" title="构建初始内存盘 (initrd, init ram disk)" class="md-nav__link">
+      构建初始内存盘 (initrd, init ram disk)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../lab-1/mbr/" title="使用汇编语言，编写 x86 裸金属 (bare-metal) 程序" class="md-nav__link">
+      使用汇编语言，编写 x86 裸金属 (bare-metal) 程序
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        实验二
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9h14V7H3v2m0 4h14v-2H3v2m0 4h14v-2H3v2m16 0h2v-2h-2v2m0-10v2h2V7h-2m0 6h2v-2h-2v2z"/></svg>
+        </span>
+      </label>
+    
+    <a href="./" title="实验二" class="md-nav__link md-nav__link--active">
+      实验二
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#shell" class="md-nav__link">
+    编写 Shell 程序
+  </a>
+  
+    <nav class="md-nav" aria-label="编写 Shell 程序">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    更健壮（推荐，但不要求）
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    支持管道
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    支持基本的文件重定向
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ctrl-c" class="md-nav__link">
+    处理 Ctrl-C 的按键
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bash-tcp" class="md-nav__link">
+    支持 Bash 风格的 TCP 重定向（选做）
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    支持基于文件描述符的文件重定向、文件重定向组合（选做）
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    更多功能（选做）
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#strace" class="md-nav__link">
+    使用 strace 工具追踪系统调用
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    实验要求
+  </a>
+  
+    <nav class="md-nav" aria-label="实验要求">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    关于实验报告
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    关于选做项目
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    其他说明
+  </a>
+  
+    <nav class="md-nav" aria-label="其他说明">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#makefile" class="md-nav__link">
+    关于 Makefile 的解释
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    示例程序
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../lab-3/" title="实验三" class="md-nav__link">
+      实验三
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      实验四
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="实验四" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        实验四
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../lab-4/" title="介绍" class="md-nav__link">
+      介绍
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../lab-4/rootfs/" title="准备 rootfs" class="md-nav__link">
+      准备 rootfs
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../lab-4/namespaces/" title="隔离命名空间" class="md-nav__link">
+      隔离命名空间
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../lab-4/mounts/" title="挂载文件系统" class="md-nav__link">
+      挂载文件系统
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../lab-4/pivot_root/" title="使用 pivot_root" class="md-nav__link">
+      使用 pivot_root
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../lab-4/capabilities/" title="限制 capabilities" class="md-nav__link">
+      限制 capabilities
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../lab-4/seccomp/" title="过滤系统调用" class="md-nav__link">
+      过滤系统调用
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../lab-4/cgroup/" title="限制系统资源" class="md-nav__link">
+      限制系统资源
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../faq/" title="FAQ" class="md-nav__link">
+      FAQ
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#shell" class="md-nav__link">
+    编写 Shell 程序
+  </a>
+  
+    <nav class="md-nav" aria-label="编写 Shell 程序">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    更健壮（推荐，但不要求）
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    支持管道
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    支持基本的文件重定向
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ctrl-c" class="md-nav__link">
+    处理 Ctrl-C 的按键
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bash-tcp" class="md-nav__link">
+    支持 Bash 风格的 TCP 重定向（选做）
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    支持基于文件描述符的文件重定向、文件重定向组合（选做）
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    更多功能（选做）
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#strace" class="md-nav__link">
+    使用 strace 工具追踪系统调用
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    实验要求
+  </a>
+  
+    <nav class="md-nav" aria-label="实验要求">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    关于实验报告
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    关于选做项目
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    其他说明
+  </a>
+  
+    <nav class="md-nav" aria-label="其他说明">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#makefile" class="md-nav__link">
+    关于 Makefile 的解释
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    示例程序
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/OSH-2020/OSH-2020.github.io/edit/master/docs/lab-2/README.md" title="编辑此页" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  
+                
+                
+                <h1 id="lab-2">Lab 2<a class="headerlink" href="#lab-2" title="Permanent link">&para;</a></h1>
+<p>在实验一中，我们使用了大量的命令行操作来完成一系列工作，如编译 Linux 内核、打包 initrd、运行 QEMU 等。所有的命令行都由一个叫做外壳（shell）的程序解释并执行。本实验我们将自己编写一个简单的 shell 并理解 Linux shell 程序的工作原理。</p>
+<h2 id="shell">编写 Shell 程序<a class="headerlink" href="#shell" title="Permanent link">&para;</a></h2>
+<p>首先，大家可以将本页底部助教编写的一个示例程序命名为 <code>shell.c</code> 并尝试编译运行它：</p>
+<div class="highlight"><pre><span></span><code>gcc -o sh shell.c
+</code></pre></div>
+
+<p>以上命令会调用 GCC 编译器编译出一个名为 <code>sh</code> 的可执行文件，你可以继续输入 <code>./sh</code> 来运行它。</p>
+<p>这是一个非常简陋的 shell，它会提示你输入命令，你可以输入 <code>cd</code> 来切换工作目录，输入 <code>pwd</code> 显示当前目录，输入 <code>export</code> 导出环境变量，输入 <code>exit</code> 退出，或者调用系统中有的其他命令来运行，例如 <code>ls</code>, <code>cat</code> 等。</p>
+<p>你的任务是对这个 shell 程序进行修改升级（当然，你也可以选择自己从头编写——这不是强制要求的），并完成下面的任务。</p>
+<h3 id="_1">更健壮（推荐，但不要求）<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<p>目前的示例程序非常脆弱，无法处理不良的输入（如 <code>cd /</code> 可以运行，但将中间的一个空格改成两个就不行），也不检查各种可能的错误（<code>chdir</code>、<code>fork</code>、<code>exec</code>等系统调用都可能出错）。建议你将它改得更健壮，以方便之后的进一步开发和调试。</p>
+<h3 id="_2">支持管道<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<p>形如 <code>env | wc</code> 这样的命令利用了「管道」语法，将两条不同的命令对接在一起同时运行。<code>|</code> 的意思是将前面的命令 <code>env</code>（输出所有环境变量）的标准输出连接到后面命令 <code>wc</code>（统计行数）的标准输入（这样就能统计出环境变量的总数）。请你观察并学习这个语法的效果，为你的 <code>shell</code> 程序实现这一功能。</p>
+<p>你可能要用到的函数：<code>pipe</code>、<code>close</code>、<code>dup</code>。你可以运行 <code>man 函数名</code> 来查看系统自带的文档，或者上网搜索更多信息。</p>
+<h3 id="_3">支持基本的文件重定向<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p>形如 <code>ls &gt; out.txt</code> 会将 <code>ls</code> 命令的输出重定向到 <code>out.txt</code> 文件中，具体地说，会将 <code>out.txt</code> 关联到程序的标准输出，然后再运行相应的命令。</p>
+<p>类似的，<code>ls &gt;&gt; out.txt</code> 会将输出追加（而不是覆盖）到 <code>out.txt</code> 文件，<code>cat &lt; in.txt</code> 会将程序的标准输入重定向到文件 <code>in.txt</code>。</p>
+<p>请为你的 <code>shell</code> 程序实现 <code>&gt;</code>、<code>&gt;&gt;</code> 和 <code>&lt;</code> 的功能。</p>
+<p>你可能要用到的函数：<code>open</code>、<code>close</code>、<code>dup</code>。</p>
+<h3 id="ctrl-c">处理 Ctrl-C 的按键<a class="headerlink" href="#ctrl-c" title="Permanent link">&para;</a></h3>
+<p>在使用 shell 的时候按下 Ctrl-C 可以丢弃当前输入到一半的命令，重新显示提示符并接受新的命令输入。当有程序运行时，按下 Ctrl-C 可以终结运行中的程序，立即回到 shell 开始新的命令输入（shell 没有随程序一起结束）。</p>
+<p>例如（<code>^C</code> 表示遇到 Ctrl-C 的输入）：</p>
+<div class="highlight"><pre><span></span><code>$ <span class="nb">echo</span> Hello
+Hello
+$ <span class="nb">echo</span> Hello^C
+$ sleep <span class="m">9999</span>  <span class="c1"># 几秒之后</span>
+^C
+$             <span class="c1"># sleep 没有运行完</span>
+$ ^C
+$ sh  <span class="c1"># 这里新开了一个嵌套的 shell</span>
+$ ^C
+$ <span class="nb">exit</span>
+$ <span class="nb">exit</span>
+</code></pre></div>
+
+<p>请为你的 <code>shell</code> 实现对 Ctrl-C 的处理。</p>
+<p>提示：当你正确处理第一种情况后（丢弃未输入完的命令），第二种情况（终结运行中的程序）并不需要你做任何工作。</p>
+<p>你可能要用到的函数：<code>signal</code>、<code>waitpid</code>。</p>
+<h3 id="bash-tcp">支持 Bash 风格的 TCP 重定向（选做）<a class="headerlink" href="#bash-tcp" title="Permanent link">&para;</a></h3>
+<p>在精简的 Linux 环境中（如 Docker 容器里），常常是没有 <code>nc</code> 命令用来进行原始的 TCP 网络通信的。Bash 和一些其他 shell 支持一种特殊的重定向语法：<code>/dev/tcp/&lt;host&gt;/&lt;port&gt;</code>。</p>
+<p>通过查看 <a href="https://linux.die.net/man/1/bash">Bash 的 man 文档</a>，<code>REDIRECTION</code> 一节，当重定向目标是下面几种路径，且操作系统没有提供这个路径时，Bash 会自行处理它们：</p>
+<div class="highlight"><pre><span></span><code>/dev/fd/&lt;fd&gt;
+/dev/stdin
+/dev/stdout
+/dev/stderr
+/dev/tcp/&lt;host&gt;/&lt;port&gt;
+/dev/udp/&lt;host&gt;/&lt;port&gt;
+</code></pre></div>
+
+<p>阅读相关文档，模拟 Bash 的行为实现 <code>cmd &gt; /dev/tcp/&lt;host&gt;/&lt;port&gt;</code> 和 <code>cmd &lt; /dev/tcp/&lt;host&gt;/&lt;port&gt;</code> 的重定向。</p>
+<p>方便起见，你只需要处理 <code>&lt;host&gt;</code> 是典型的 IPv4 地址（即 <code>a.b.c.d</code> 的形式，其中 abcd 均为 0 ~ 255 之间的整数）且 <code>&lt;port&gt;</code> 为 1 ~ 65535 之间的整数时的情况。</p>
+<p>你可能要用到的函数：<code>socket</code>, <code>connect</code></p>
+<h3 id="_4">支持基于文件描述符的文件重定向、文件重定向组合（选做）<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>形如 <code>cmd 10&gt; out.txt</code> 和 <code>cmd 20&lt; in.txt</code> 以及 <code>cmd 10&gt;&amp;20 30&lt; in.txt</code> 这样的命令会将打开文件描述符 10、20 和 30 并重定向到相应的文件。请自行查找资料，实现这些文件重定向。</p>
+<div class="highlight"><pre><span></span><code>cmd <span class="s">&lt;&lt; EOF</span>
+<span class="s">this</span>
+<span class="s">output</span>
+<span class="s">EOF</span>
+</code></pre></div>
+
+<p>上述命令会将字符串 <code>"this\noutput\n"</code> 作为标准输入重定向给 <code>cmd</code>。请实现这种重定向方式。</p>
+<p><code>cmd &lt;&lt;&lt; text</code> 会将 <code>"text\n"</code> 作为标准输入重定向给 <code>cmd</code>。请实现这种重定向方式。</p>
+<h3 id="_5">更多功能（选做）<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p>我们一般使用的 shell 非常强大，你还可以自行了解下面这些语法的含义：</p>
+<div class="highlight"><pre><span></span><code><span class="nb">echo</span> <span class="nv">$PATH</span>
+<span class="nv">A</span><span class="o">=</span><span class="m">1</span> env
+<span class="nb">alias</span> <span class="nv">ll</span><span class="o">=</span><span class="s1">&#39;ls -l&#39;</span>
+<span class="nb">echo</span> ~
+<span class="nb">echo</span> ~root
+<span class="o">(</span>sleep <span class="m">10</span><span class="p">;</span> <span class="nb">echo</span> aha<span class="o">)</span> <span class="p">&amp;</span>
+<span class="k">if</span> true<span class="p">;</span> <span class="k">then</span> ls<span class="p">;</span> <span class="k">fi</span>
+</code></pre></div>
+
+<p>请自行选择一个或多个功能并实现它们。</p>
+<h2 id="strace">使用 strace 工具追踪系统调用<a class="headerlink" href="#strace" title="Permanent link">&para;</a></h2>
+<p>Linux 系统中有许多用于监控、追踪系统状态的工具，如下图所示。</p>
+<p><img alt="horror image" src="https://i.stack.imgur.com/ntC1q.png" /></p>
+<p><code>strace</code> 是一个用于监控进程系统调用的程序，例如，在 Debian 系统中使用 <code>strace</code> 追踪 <code>true</code> 命令（一个什么都不做并返回 0 的命令），可以看到类似以下输出：</p>
+<div class="highlight"><pre><span></span><code><span class="n">execve</span><span class="p">(</span><span class="s">&quot;/usr/bin/true&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s">&quot;true&quot;</span><span class="p">],</span> <span class="mh">0x7ffc07ef2ae0</span> <span class="cm">/* 48 vars */</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">brk</span><span class="p">(</span><span class="nb">NULL</span><span class="p">)</span>                               <span class="o">=</span> <span class="mh">0x55cc2c5dc000</span>
+<span class="n">arch_prctl</span><span class="p">(</span><span class="mh">0x3001</span> <span class="cm">/* ARCH_??? */</span><span class="p">,</span> <span class="mh">0x7fff1b8ec3e0</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span> <span class="n">EINVAL</span> <span class="p">(</span><span class="n">Invalid</span> <span class="n">argument</span><span class="p">)</span>
+<span class="n">access</span><span class="p">(</span><span class="s">&quot;/etc/ld.so.preload&quot;</span><span class="p">,</span> <span class="n">R_OK</span><span class="p">)</span>      <span class="o">=</span> <span class="o">-</span><span class="mi">1</span> <span class="n">ENOENT</span> <span class="p">(</span><span class="n">No</span> <span class="n">such</span> <span class="n">file</span> <span class="n">or</span> <span class="n">directory</span><span class="p">)</span>
+<span class="n">openat</span><span class="p">(</span><span class="n">AT_FDCWD</span><span class="p">,</span> <span class="s">&quot;/etc/ld.so.cache&quot;</span><span class="p">,</span> <span class="n">O_RDONLY</span><span class="o">|</span><span class="n">O_CLOEXEC</span><span class="p">)</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">fstat</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="p">{</span><span class="n">st_mode</span><span class="o">=</span><span class="n">S_IFREG</span><span class="o">|</span><span class="mo">0644</span><span class="p">,</span> <span class="n">st_size</span><span class="o">=</span><span class="mi">113477</span><span class="p">,</span> <span class="p">...})</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">mmap</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span> <span class="mi">113477</span><span class="p">,</span> <span class="n">PROT_READ</span><span class="p">,</span> <span class="n">MAP_PRIVATE</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="mh">0x7fcc2e447000</span>
+<span class="n">close</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>                                <span class="o">=</span> <span class="mi">0</span>
+<span class="n">openat</span><span class="p">(</span><span class="n">AT_FDCWD</span><span class="p">,</span> <span class="s">&quot;/lib/x86_64-linux-gnu/libc.so.6&quot;</span><span class="p">,</span> <span class="n">O_RDONLY</span><span class="o">|</span><span class="n">O_CLOEXEC</span><span class="p">)</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">read</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s">&quot;</span><span class="se">\177</span><span class="s">ELF</span><span class="se">\2\1\1\3\0\0\0\0\0\0\0\0\3\0</span><span class="s">&gt;</span><span class="se">\0\1\0\0\0\360</span><span class="s">r</span><span class="se">\2\0\0\0\0\0</span><span class="s">&quot;</span><span class="p">...,</span> <span class="mi">832</span><span class="p">)</span> <span class="o">=</span> <span class="mi">832</span>
+<span class="n">lseek</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="n">SEEK_SET</span><span class="p">)</span>                  <span class="o">=</span> <span class="mi">64</span>
+
+<span class="cm">/* 此处省略多行 */</span>
+
+<span class="n">exit_group</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>                           <span class="o">=</span> <span class="o">?</span>
+<span class="o">+++</span> <span class="n">exited</span> <span class="n">with</span> <span class="mi">0</span> <span class="o">+++</span>
+</code></pre></div>
+
+<p>请使用 <code>strace</code> 工具追踪你编写的 shell，找出 3 个你代码里没有出现，但出现在 strace 的输出中的系统调用（<code>open</code>, <code>read</code>, <code>write</code> 除外）。查阅资料，<strong>简单</strong>说说它们的功能。</p>
+<h2 id="_6">实验要求<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<p>请按照以下目录结构组织你的 GitHub 仓库：</p>
+<div class="highlight"><pre><span></span><code>(Git)                     // Git 仓库目录
+├── lab2                  // 实验二根目录
+│   ├── shell.c           // 你的 Shell 的源代码
+│   ├── other.c           // （可选）更多代码文件
+│   ├── Makefile          // （可选）你提供的 Makefile
+│   └── README.md         // 实验报告
+├── .gitignore            // 这两个文件在实验一的文档里说过了
+└── README.md
+</code></pre></div>
+
+<p>本次实验满分 10 分。你需要完成：</p>
+<ul>
+<li>按照上面的要求组织仓库结构，提交你的 shell 源代码<ul>
+<li>如果你提交的内容无法正常编译，我们会尝试修复并酌情扣除一定分数</li>
+<li>实验一中对于 Git 工具的使用要求仍然适用于本实验，即当出现以下情况时，我们会酌情扣除一定分数<ul>
+<li>很大一部分的 commit 由 GitHub 网页版生成，即通过网页版文件上传的方式提交实验的文件</li>
+<li>只有寥寥无几的 commit</li>
+<li>上传了大量与实验要求无关的文件，没有设置 <code>.gitignore</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>你的 shell 能够正确处理含有 1 个管道的命令，如 <code>ls | grep hello</code><ul>
+<li>你的 shell 能够正确处理含有多个管道的命令，如 <code>ls | cat -n | grep hello</code></li>
+</ul>
+</li>
+<li>你的 shell 支持 <code>&gt;</code>, <code>&gt;&gt;</code>, <code>&lt;</code> 重定向</li>
+<li>你的 shell 在遇到 Ctrl-C 时能丢弃已经输入一半的命令行，显示 <code>#</code> 提示符并重新接受输入</li>
+<li>以上必做项目全部完成可以获得 7 分。对于额外的选做项目，由助教评估确定分数，最高 4 分<ul>
+<li>完成 shell 获得加分后，总分不超过 9 分</li>
+</ul>
+</li>
+<li>按照「strace 工具」一节的实验要求有效地描述了 3 个系统调用（1 分）</li>
+</ul>
+<h3 id="_7">关于实验报告<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<p>尽管本实验除了「strace 工具」一节以外对实验报告并无要求，但是我们仍然推荐你在 <code>README.md</code> 中写少量内容，例如</p>
+<ul>
+<li>你的 shell 实现可能与系统中的 <code>sh</code>（或助教期望的表现）有所不同，简要介绍这些潜在的区别，以免产生误会，导致不必要的扣分。</li>
+<li>你完成了一些选做项目，也可以简单介绍，方便助教进行更准确的评估</li>
+</ul>
+<p>本实验的主要内容为 shell 程序的编写，因此不必花费太多工夫在实验报告上。</p>
+<h3 id="_8">关于选做项目<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<p>如果你按照本文档要求实现了上述三个功能，你将获得至少 7 分。如果你想获得更高的分数，请参考标记为「选做」的几个小节中介绍的 Linux shell 的常见功能并实现（不限制为本文档列出的功能，见下）。</p>
+<p>每一项额外功能都会由助教讨论评估，但通常单个项目不会超过 2 分。</p>
+<p>我们鼓励进行与操作系统相关的实验探究，因此过度脱离主题的项目可能不会获得加分，例如：</p>
+<ul>
+<li>过于简单的内置命令，如 <code>:</code> (colon), <code>true</code>, <code>false</code>, <code>help</code> 等</li>
+<li>严重偏离 shell 的基本功能的项目，例如你<a href="https://github.com/johan/zsh/blob/master/Functions/Misc/tetris">模仿 Zsh</a> 为你的 shell 内置了一个俄罗斯方块游戏<p><img alt="Zsh Tetris" src="https://i.redd.it/blfzzmopc7j41.png" /></p>
+</li>
+</ul>
+<p>作为一个参考基准，GNU Bash 具有的功能大部分都会被认可。</p>
+<h2 id="_9">其他说明<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<p>本实验可以使用 C, C++ 或 Rust 语言完成，如果需要使用其他语言请先询问助教。（注：不推荐 Rust，原因见 <a href="../faq/">FAQ</a>）</p>
+<p>本实验可以使用 libc, libstdc++, libm 以及 iostream, STL 等 C/C++ 语言标准和常用库。如果你愿意，你也可以使用 readline 和 ncurses 等 Linux 程序常用库。使用此处没有列出的库前请询问助教。</p>
+<h3 id="makefile">关于 Makefile 的解释<a class="headerlink" href="#makefile" title="Permanent link">&para;</a></h3>
+<p>Make 是一种自动化复杂项目编译过程的工具，你可以自行了解它的用法。</p>
+<p><a href="https://ibugone.com/p/16">这里</a>有一篇博客（英文）简单介绍了使用 Make 进行编译自动化的好处与方式。</p>
+<p>本实验中，如果你提供了 <code>Makefile</code> 文件，我们将使用它来编译你提交的程序；否则，我们将编译 <code>lab2/</code> 目录下所有的 <code>*.c</code> 和 <code>*.cpp</code> 文件。在任何情况下，你也可以在 <code>README.md</code> 中说明编译与运行相关的注意事项。</p>
+<h2 id="_10">示例程序<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;sys/wait.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp"></span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="cm">/* 输入的命令行 */</span>
+    <span class="kt">char</span> <span class="n">cmd</span><span class="p">[</span><span class="mi">256</span><span class="p">];</span>
+    <span class="cm">/* 命令行拆解成的各部分，以空指针结尾 */</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">args</span><span class="p">[</span><span class="mi">128</span><span class="p">];</span>
+    <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+    <span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+        <span class="cm">/* 提示符 */</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;# &quot;</span><span class="p">);</span>
+        <span class="n">fflush</span><span class="p">(</span><span class="n">stdin</span><span class="p">);</span>
+        <span class="n">fgets</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="n">stdin</span><span class="p">);</span>
+        <span class="cm">/* 清理结尾的换行符 */</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">cmd</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">);</span>
+        <span class="n">cmd</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="sc">&#39;\0&#39;</span><span class="p">;</span>
+        <span class="cm">/* 拆解命令行 */</span>
+        <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">cmd</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="o">*</span><span class="n">args</span><span class="p">[</span><span class="n">i</span><span class="p">];</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+            <span class="k">for</span> <span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span> <span class="o">*</span><span class="n">args</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span> <span class="n">args</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">++</span><span class="p">)</span>
+                <span class="k">if</span> <span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39; &#39;</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="o">*</span><span class="n">args</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="sc">&#39;\0&#39;</span><span class="p">;</span>
+                    <span class="n">args</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">++</span><span class="p">;</span>
+                    <span class="k">break</span><span class="p">;</span>
+                <span class="p">}</span>
+        <span class="n">args</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+
+        <span class="cm">/* 没有输入命令 */</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="k">continue</span><span class="p">;</span>
+
+        <span class="cm">/* 内建命令 */</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">strcmp</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s">&quot;cd&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+                <span class="n">chdir</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+            <span class="k">continue</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">strcmp</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s">&quot;pwd&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kt">char</span> <span class="n">wd</span><span class="p">[</span><span class="mi">4096</span><span class="p">];</span>
+            <span class="n">puts</span><span class="p">(</span><span class="n">getcwd</span><span class="p">(</span><span class="n">wd</span><span class="p">,</span> <span class="mi">4096</span><span class="p">));</span>
+            <span class="k">continue</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">strcmp</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s">&quot;export&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">args</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                <span class="cm">/*处理每个变量*/</span>
+                <span class="kt">char</span> <span class="o">*</span><span class="n">name</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+                <span class="kt">char</span> <span class="o">*</span><span class="n">value</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+                <span class="k">while</span> <span class="p">(</span><span class="o">*</span><span class="n">value</span> <span class="o">!=</span> <span class="sc">&#39;\0&#39;</span> <span class="o">&amp;&amp;</span> <span class="o">*</span><span class="n">value</span> <span class="o">!=</span> <span class="sc">&#39;=&#39;</span><span class="p">)</span>
+                    <span class="n">value</span><span class="o">++</span><span class="p">;</span>
+                <span class="o">*</span><span class="n">value</span> <span class="o">=</span> <span class="sc">&#39;\0&#39;</span><span class="p">;</span>
+                <span class="n">value</span><span class="o">++</span><span class="p">;</span>
+                <span class="n">setenv</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="k">continue</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">strcmp</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s">&quot;exit&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+
+        <span class="cm">/* 外部命令 */</span>
+        <span class="kt">pid_t</span> <span class="n">pid</span> <span class="o">=</span> <span class="n">fork</span><span class="p">();</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">pid</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="cm">/* 子进程 */</span>
+            <span class="n">execvp</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">args</span><span class="p">);</span>
+            <span class="cm">/* execvp失败 */</span>
+            <span class="k">return</span> <span class="mi">255</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="cm">/* 父进程 */</span>
+        <span class="n">wait</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../lab-1/mbr/" title="使用汇编语言，编写 x86 裸金属 (bare-metal) 程序" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  上一页
+                </span>
+                使用汇编语言，编写 x86 裸金属 (bare-metal) 程序
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../lab-3/" title="实验三" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  下一页
+                </span>
+                实验三
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/vendor.d710d30a.min.js"></script>
+      <script src="../assets/javascripts/bundle.b39636ac.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c"}</script>
+      
+      <script>
+        app = initialize({
+          base: "..",
+          features: [],
+          search: Object.assign({
+            worker: "../assets/javascripts/worker/search.a68abb33.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>

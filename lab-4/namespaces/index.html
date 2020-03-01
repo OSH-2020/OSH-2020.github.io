@@ -1,0 +1,853 @@
+
+
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.4.0">
+    
+    
+      
+        <title>隔离命名空间 - Operating Systems (H) 2020 Spring</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.fe0cca5b.min.css">
+      
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="https://101.ustclug.org/css/extra.css">
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="../.." title="Operating Systems (H) 2020 Spring" class="md-header-nav__button md-logo" aria-label="Operating Systems (H) 2020 Spring">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            Operating Systems (H) 2020 Spring
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              隔离命名空间
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/OSH-2020/OSH-2020.github.io/" title="前往 GitHub 仓库" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    OSH-2020/OSH-2020.github.io
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Operating Systems (H) 2020 Spring" class="md-nav__button md-logo" aria-label="Operating Systems (H) 2020 Spring">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Operating Systems (H) 2020 Spring
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/OSH-2020/OSH-2020.github.io/" title="前往 GitHub 仓库" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    OSH-2020/OSH-2020.github.io
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="首页" class="md-nav__link">
+      首页
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../x/" title="大作业" class="md-nav__link">
+      大作业
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      实验一
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="实验一" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        实验一
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../lab-1/" title="介绍" class="md-nav__link">
+      介绍
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../lab-1/linux/" title="Linux 的安装与使用" class="md-nav__link">
+      Linux 的安装与使用
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../lab-1/git/" title="学习使用 Git" class="md-nav__link">
+      学习使用 Git
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../lab-1/github/" title="学习 GitHub 的简单使用，搭建实验私有仓库" class="md-nav__link">
+      学习 GitHub 的简单使用，搭建实验私有仓库
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../lab-1/kernel/" title="编译 Linux 内核并在 QEMU 中测试" class="md-nav__link">
+      编译 Linux 内核并在 QEMU 中测试
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../lab-1/initrd/" title="构建初始内存盘 (initrd, init ram disk)" class="md-nav__link">
+      构建初始内存盘 (initrd, init ram disk)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../lab-1/mbr/" title="使用汇编语言，编写 x86 裸金属 (bare-metal) 程序" class="md-nav__link">
+      使用汇编语言，编写 x86 裸金属 (bare-metal) 程序
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../lab-2/" title="实验二" class="md-nav__link">
+      实验二
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../lab-3/" title="实验三" class="md-nav__link">
+      实验三
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6" checked>
+    
+    <label class="md-nav__link" for="nav-6">
+      实验四
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="实验四" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        实验四
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../" title="介绍" class="md-nav__link">
+      介绍
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../rootfs/" title="准备 rootfs" class="md-nav__link">
+      准备 rootfs
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        隔离命名空间
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9h14V7H3v2m0 4h14v-2H3v2m0 4h14v-2H3v2m16 0h2v-2h-2v2m0-10v2h2V7h-2m0 6h2v-2h-2v2z"/></svg>
+        </span>
+      </label>
+    
+    <a href="./" title="隔离命名空间" class="md-nav__link md-nav__link--active">
+      隔离命名空间
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#clone2-fork2" class="md-nav__link">
+    使用 clone(2) 替代 fork(2) 创建子进程
+  </a>
+  
+    <nav class="md-nav" aria-label="使用 clone(2) 替代 fork(2) 创建子进程">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mmap2" class="md-nav__link">
+    使用 mmap(2) 为子进程分配栈空间
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clone" class="md-nav__link">
+    将子进程隔离至新的命名空间中 (clone)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unshare" class="md-nav__link">
+    将进程隔离至新的命名空间中 (unshare)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    参考资料
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clone_1" class="md-nav__link">
+    clone 的示例程序
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../mounts/" title="挂载文件系统" class="md-nav__link">
+      挂载文件系统
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../pivot_root/" title="使用 pivot_root" class="md-nav__link">
+      使用 pivot_root
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../capabilities/" title="限制 capabilities" class="md-nav__link">
+      限制 capabilities
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../seccomp/" title="过滤系统调用" class="md-nav__link">
+      过滤系统调用
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../cgroup/" title="限制系统资源" class="md-nav__link">
+      限制系统资源
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../faq/" title="FAQ" class="md-nav__link">
+      FAQ
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#clone2-fork2" class="md-nav__link">
+    使用 clone(2) 替代 fork(2) 创建子进程
+  </a>
+  
+    <nav class="md-nav" aria-label="使用 clone(2) 替代 fork(2) 创建子进程">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mmap2" class="md-nav__link">
+    使用 mmap(2) 为子进程分配栈空间
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clone" class="md-nav__link">
+    将子进程隔离至新的命名空间中 (clone)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unshare" class="md-nav__link">
+    将进程隔离至新的命名空间中 (unshare)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    参考资料
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clone_1" class="md-nav__link">
+    clone 的示例程序
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/OSH-2020/OSH-2020.github.io/edit/master/docs/lab-4/namespaces/README.md" title="编辑此页" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  
+                
+                
+                <h1 id="_1">隔离容器的命名空间<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<p>命名空间（namespaces）是 Linux 内核的一个特性，将部分系统资源隔离，使得不同命名空间中的进程不能互相看见其他命名空间中的同种资源。</p>
+<p>命名空间的概念最早出现在 2002 年的 Linux 2.4.19，当时唯一的命名空间是挂载命名空间（mount namespaces），由于当时的开发者并没有想到以后会有各种各样的命名空间被加入 Linux，所以挂载命名空间就使用了 <code>CLONE_NEWNS</code>（clone new namespace）这样一个平凡的 flag。</p>
+<p>目前最新的 Linux 内核（&gt;= 5.6）一共支持八种命名空间：</p>
+<ul>
+<li><code>CLONE_NEWNS</code>: 挂载命名空间（mount namespaces），隔离挂载点等信息，子挂载命名空间的挂载不会向上传递到父挂载命名空间，是 Linux 内核历史上第一个命名空间的概念。（Kernel 2.4.19, 2002）</li>
+<li><code>CLONE_NEWUTS</code>: Unix 主机命名空间（<strong>UTS</strong> namespaces, <strong>UNIX Time-Sharing</strong>），隔离主机名与域名等信息，不同的 UTS 命名空间可以拥有不同的主机名，在网络上呈现为多个主机。（Kernel 2.6.19, 2006）</li>
+<li><code>CLONE_NEWIPC</code>: 进程间通信命名空间（<strong>IPC</strong> namespaces, <strong>Inter-Process Communication</strong>），隔离 System V IPC，不同 IPC 命名空间中的进程不能使用传统的 System V 风格的进程间通信方式，如共享内存（SHM）等。（Kernel 2.6.19, 2006）</li>
+<li><code>CLONE_NEWPID</code>: 进程 ID 命名空间（PID namespaces），隔离进程的 PID 空间，不同的 PID 命名空间中的 PID 可以重复，互不影响。（Kernel 2.6.24, 2008）</li>
+<li><code>CLONE_NEWNET</code>: 网络命名空间（network namespaces），虚拟化一个完整的网络栈，每个网络栈拥有一套完整的网络资源，包括网络设备（interfaces）、路由表与防火墙等。与其他命名空间不同，网络命名空间<strong>没有</strong>层次结构，所有的网络命名空间互相独立，每个进程只能属于一个网络命名空间，并且网络命名空间在没有进程属于它的时候<strong>不会</strong>自动消失。（Kernel 2.6.29, 2009）</li>
+<li><code>CLONE_NEWUSER</code>: 用户命名空间（user namespaces），隔离用户与组信息，子用户命名空间中的每个用户和组（UID / GID）均映射到父用户命名空间中的一个用户和组，提供一种更好的权限隔离方式。通过将容器中的 root 用户映射到主机上的一个非特权用户，可以提升容器的安全性，这也是 LXC / LXD 实现「非特权容器」的方法。（Kernel 3.8, 2013）</li>
+<li><code>CLONE_NEWCGROUP</code>: Cgroup 命名空间，类似 chroot，隔离 cgroup 层次结构，子命名空间看到的根 cgroup 结构实际上是父命名空间的一个子树。（Kernel 4.6, 2016）</li>
+<li><code>CLONE_NEWTIME</code>: 系统时间命名空间，与 UTS 命名空间类似，允许不同的进程看到不同的系统时间。（Kernel 5.6, 2020）</li>
+</ul>
+<p>本实验要求为你的容器隔离 NEWNS, NEWUTS, NEWIPC, NEWPID 和 NEWCGROUP 五种命名空间。由于 NEWNET 和 NEWUSER 需要不少附加工作和额外的知识基础，因此本实验不对这两种命名空间作任何要求，当然，有兴趣的同学可以自行探究（不建议）。NEWTIME 由于是在 3 月 30 日才正式发布的 Linux 5.6 内核中新增的，相关支持还不完善，因此本实验也不要求。</p>
+<h2 id="clone2-fork2">使用 clone(2) 替代 fork(2) 创建子进程<a class="headerlink" href="#clone2-fork2" title="Permanent link">&para;</a></h2>
+<p>Linux 中隔离命名空间的系统调用有两个，<a href="http://man7.org/linux/man-pages/man2/unshare.2.html">unshare(2)</a> 与 <a href="http://man7.org/linux/man-pages/man2/clone.2.html">clone(2)</a>。前者<em>多数时候</em>用于在当前进程中创建新命名空间，且两者对不同命名空间（clone flags）的处理方式略有不同，容易搞混，因此我们使用 clone 系统调用，在创建子进程的同时直接将子进程的各种命名空间隔离。</p>
+<div class="admonition question">
+<p class="admonition-title">你知道吗？</p>
+<p>几个知名容器，如 Docker 和 <a href="https://en.wikipedia.org/wiki/Singularity_(software)">Singularity</a> 等所使用的 Go 语言 <code>os/exec</code> 包中的 <code>Command</code> 使用 clone 而不是 fork 作为支持该功能的系统调用。</p>
+</div>
+<p>查看 <a href="http://man7.org/linux/man-pages/man2/clone.2.html">clone 系统调用的手册</a>，可以看到其原型如下：</p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span> <span class="nf">clone</span><span class="p">(</span>
+  <span class="kt">int</span> <span class="p">(</span><span class="o">*</span><span class="n">fn</span><span class="p">)(</span><span class="kt">void</span> <span class="o">*</span><span class="p">),</span>
+  <span class="kt">void</span> <span class="o">*</span><span class="n">child_stack</span><span class="p">,</span>
+  <span class="kt">int</span> <span class="n">flags</span><span class="p">,</span>
+  <span class="kt">void</span> <span class="o">*</span><span class="n">arg</span><span class="p">,</span>
+  <span class="p">...</span>
+  <span class="cm">/*</span>
+<span class="cm">    pid_t *ptid,</span>
+<span class="cm">    void *newtls,</span>
+<span class="cm">    pid_t *ctid</span>
+<span class="cm">  */</span>
+<span class="p">);</span>
+</code></pre></div>
+
+<p>本实验中，我们只关心前四个必要的参数，这里简要介绍一下：</p>
+<ul>
+<li><code>fn</code>: 与 <a href="http://man7.org/linux/man-pages/man2/fork.2.html">fork(2)</a> 不同的是，clone 出来的子进程并不从当前位置继续，而是从给出的 <code>fn</code> 函数开始运行，此时的 <code>fn</code> 函数就相当于子进程的 main 函数，若 <code>fn</code> 函数返回了（或调用了 <code>exit</code>），那么子进程就退出了，<code>fn</code> 的返回值（或传入 <code>exit</code> 的参数）就作为子进程的返回值。</li>
+<li><code>child_stack</code>: 同样与 fork 系统调用不同的是，clone 不仅能创建子进程，也可以在当前进程中创建额外的线程，因此 clone 不保证创建的新程序段一定是复制的或全新的，所以当创建的是子进程的时候，需要手动为子进程指定栈的开始位置。本文下方有一个使用 clone 代替 fork 的简单的示例程序可供参考，另外 clone 系统调用的手册中 Example 一节也有一个稍微长一点的示例。</li>
+<li>
+<p><code>flags</code>: 这是使用 clone 来隔离命名空间的关键，通过向 flags 参数传入上面所述的 <code>CLONE_</code> 开头的标志中的一个或多个的按位或（bitwise OR），可以将 clone 出来的子进程直接放入新的命名空间中。</p>
+<p>与 fork 不同的是，clone 出来的子进程默认情况下不能够直接 wait，需要在 flags 中使用按位或传入 <code>SIGCHLD</code> 后才能够 wait。详情可以参考本文后面的示例程序。</p>
+</li>
+</ul>
+<ul>
+<li><code>arg</code>: 注意到 clone 第一个参数的原型是 <code>int (*)(void *)</code>，这是一个函数指针，指向的函数接受一个 <code>void *</code> 类型的参数。这个参数 <code>arg</code> 就是直接传入子进程的，用于单向传递信息。</li>
+<li>
+<p>最后三个参数写在一个块注释里，表示它们是<strong>条件参数</strong>，仅当前面的参数满足特定条件时才需要设定。<strong>本实验不涉及这几个条件参数。</strong></p>
+<p>顺便一提，<a href="http://man7.org/linux/man-pages/man2/open.2.html">open(2)</a> 系统调用也有一个可选参数（参数 3 <code>mode_t mode</code>），该参数存在与否的判断与上面说的方法是一样的。</p>
+</li>
+</ul>
+<h3 id="mmap2">使用 mmap(2) 为子进程分配栈空间<a class="headerlink" href="#mmap2" title="Permanent link">&para;</a></h3>
+<p>上面提到了，由于 clone 的特殊性，需要手动为子进程指定栈位置。一个兼容性好的做法是，使用 <a href="http://man7.org/linux/man-pages/man2/mmap.2.html">mmap(2) 系统调用</a>分配一段地址用作子进程的栈。</p>
+<p>mmap 函数的原型和参数可以从手册中查到。对于此处的用途，我们关心以下参数的值：</p>
+<ul>
+<li><code>prot</code> 参数应当为 <code>PROT_READ | PROT_WRITE</code>，显然子进程需要读写这块内存</li>
+<li><code>flags</code> 参数应当包含 <code>MAP_PRIVATE | MAP_ANONYMOUS | MAP_STACK</code>，因为栈是进程私有的（private），并且不以任何文件为基础（anonymous），最后一个参数 <code>MAP_STACK</code> 是显然的</li>
+<li><code>fd</code> 应为 -1，具体请见 mmap 的 man 文档中关于 <code>MAP_ANONYMOUS</code> 的解释</li>
+</ul>
+<p>由于在我们的实验环境（amd64 架构）中，栈是反向增长的，栈底的内存地址在数值上是最大的，因此在将 mmap 返回的内存地址用作栈的起始位置前，应该加上它的大小，这样实际传入的指针指向这块内存区域尾部后面，才能够正确用作子进程的栈。所以你可以在下面的示例程序中看到如下代码：</p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span> <span class="o">*</span><span class="n">child_stack_start</span> <span class="o">=</span> <span class="n">child_stack</span> <span class="o">+</span> <span class="n">STACK_SIZE</span><span class="p">;</span>
+</code></pre></div>
+
+<h2 id="clone">将子进程隔离至新的命名空间中 (clone)<a class="headerlink" href="#clone" title="Permanent link">&para;</a></h2>
+<p>这一步非常简单，只需要在调用 clone 时的 flags 参数中通过按位或的方式添加一个或多个本文最开头给出的 clone flags，此时生成的子进程就在新的命名空间中了。例如：</p>
+<div class="highlight"><pre><span></span><code><span class="gd">-int ch = clone(child, child_stack_start, SIGCHLD, name);</span>
+<span class="gi">+int ch = clone(child, child_stack_start, CLONE_NEWPID | SIGCHLD, name);</span>
+</code></pre></div>
+
+<h2 id="unshare">将进程隔离至新的命名空间中 (unshare)<a class="headerlink" href="#unshare" title="Permanent link">&para;</a></h2>
+<p>上面提到，隔离命名空间的另一个选择是 unshare。与 clone 的主要不同点是，unshare 在<strong>当前进程</strong>中创建隔离的命名空间（），在调用 <code>unshare(CLONE_NEWXXX)</code> 完成之后，当前进程就位于新的命名空间中了。如果你在后面的实验步骤中遇到了困难，可以尝试将一个或多个命名空间改为使用 unshare 隔离。</p>
+<p>* 这里有一个例外，那就是 <code>CLONE_NEWPID</code>。调用 <code>unshare(CLONE_NEWPID)</code> 后，当前进程<strong>不会</strong>位于新的 PID 命名空间中，而是在此之后的第一个 fork 出来的子进程。</p>
+<h2 id="_2">参考资料<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://www.toptal.com/linux/separation-anxiety-isolating-your-system-with-linux-namespaces">Separation Anxiety: A Tutorial for Isolating Your System with Linux Namespaces</a></li>
+</ul>
+<p>下面几个链接是在线版的 man 文档，与终端里的 <code>man 7 &lt;title&gt;</code> 在内容上没有任何区别，建议按需阅读。</p>
+<ul>
+<li><a href="http://man7.org/linux/man-pages/man7/namespaces.7.html">namespaces(7)</a></li>
+<li><a href="http://man7.org/linux/man-pages/man7/cgroup_namespaces.7.html">cgroup_namespaces(7)</a></li>
+<li><a href="http://man7.org/linux/man-pages/man7/ipc_namespaces.7.html">ipc_namespaces(7)</a></li>
+<li><a href="http://man7.org/linux/man-pages/man7/mount_namespaces.7.html">mount_namespaces(7)</a></li>
+<li><a href="http://man7.org/linux/man-pages/man7/pid_namespaces.7.html">pid_namespaces(7)</a></li>
+<li><a href="http://man7.org/linux/man-pages/man7/uts_namespaces.7.html">uts_namespaces(7)</a></li>
+</ul>
+<h2 id="clone_1">clone 的示例程序<a class="headerlink" href="#clone_1" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="cp">#define _GNU_SOURCE    </span><span class="c1">// Required for enabling clone(2)</span>
+<span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;sched.h&gt;     // For clone(2)</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;signal.h&gt;    // For SIGCHLD constant</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;sys/mman.h&gt;  // For mmap(2)</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt; // For wait(2)</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;sys/wait.h&gt;  // For wait(2)</span><span class="cp"></span>
+
+<span class="kt">int</span> <span class="nf">child</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">arg</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;My name is %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">arg</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">3</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kt">char</span> <span class="n">name</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&quot;child&quot;</span><span class="p">;</span>
+
+<span class="cp">#define STACK_SIZE (1024 * 1024) </span><span class="c1">// 1 MiB</span>
+    <span class="kt">void</span> <span class="o">*</span><span class="n">child_stack</span> <span class="o">=</span> <span class="n">mmap</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span> <span class="n">STACK_SIZE</span><span class="p">,</span>
+                             <span class="n">PROT_READ</span> <span class="o">|</span> <span class="n">PROT_WRITE</span><span class="p">,</span>
+                             <span class="n">MAP_PRIVATE</span> <span class="o">|</span> <span class="n">MAP_ANONYMOUS</span> <span class="o">|</span> <span class="n">MAP_STACK</span><span class="p">,</span>
+                             <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="c1">// Assume stack grows downwards</span>
+    <span class="kt">void</span> <span class="o">*</span><span class="n">child_stack_start</span> <span class="o">=</span> <span class="n">child_stack</span> <span class="o">+</span> <span class="n">STACK_SIZE</span><span class="p">;</span>
+
+    <span class="kt">int</span> <span class="n">ch</span> <span class="o">=</span> <span class="n">clone</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">child_stack_start</span><span class="p">,</span> <span class="n">SIGCHLD</span><span class="p">,</span> <span class="n">name</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="n">status</span><span class="p">;</span>
+    <span class="n">wait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">status</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Child exited with code %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">WEXITSTATUS</span><span class="p">(</span><span class="n">status</span><span class="p">));</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../rootfs/" title="准备 rootfs" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  上一页
+                </span>
+                准备 rootfs
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../mounts/" title="挂载文件系统" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  下一页
+                </span>
+                挂载文件系统
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/vendor.d710d30a.min.js"></script>
+      <script src="../../assets/javascripts/bundle.b39636ac.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../..",
+          features: [],
+          search: Object.assign({
+            worker: "../../assets/javascripts/worker/search.a68abb33.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>
