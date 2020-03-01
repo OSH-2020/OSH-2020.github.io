@@ -24,7 +24,7 @@
 | No   | Date   | Task         | Due          |
 | ---- | ------ | ------------ | ------------ |
 | #0   | -      | [大作业](.)   | -            |
-| #1   | Mar 2  | [Lab 1](lab-1/README.md) | 23:00, Sunday, Mar 21 |
+| #1   | Mar 2  | [Lab 1](lab-1/README.md) | 23:00, Sunday, Mar 22 |
 
 ## Resources
 
