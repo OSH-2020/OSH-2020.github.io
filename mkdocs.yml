@@ -16,4 +16,10 @@ markdown_extensions:
 nav:
   - 首页: README.md
   - Lab 1: lab-1/README.md
+    - Linux 的安装与使用: lab-1/linux/README.md
+    - 学习使用 Git: lab-1/git/README.md
+    - 学习 GitHub 的简单使用，搭建实验私有仓库: lab-1/github/README.md
+    - 编译 Linux 内核并在 QEMU 中测试: lab-1/kernel/README.md
+    - 构建初始内存盘 (initrd, init ram disk): lab-1/initrd/README.md
+    - 使用汇编语言，编写 x86 裸金属 (bare-metal) 程序: lab-1/mbr/README.md
   - FAQ: faq/README.md
