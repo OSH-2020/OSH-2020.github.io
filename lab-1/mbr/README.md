@@ -16,7 +16,7 @@ hlt (停机)
 
 在传统的 PC 加载时，BIOS 会加载磁盘中的 MBR 块，并在 16 位实模式中执行其中的指令。一个简单的、向屏幕输出一行字符串的 MBR 程序如下：
 
-```assembly
+```asm
 [BITS 16]                               ; 16 bits program
 [ORG 0x7C00]                            ; starts from 0x7c00, where MBR lies in memory
 
