@@ -1,4 +1,6 @@
 site_name: OS (H) 2020 课程主页
+repo_name: OSH-2020/OSH-2020.github.io
+repo_url: https://github.com/OSH-2020/OSH-2020.github.io
 
 theme:
   name: 'material'
@@ -12,6 +14,8 @@ markdown_extensions:
   - pymdownx.details
   - pymdownx.superfences
   - markdown.extensions.def_list
+  - toc:
+      permalink: true
 
 nav:
   - 首页: README.md
