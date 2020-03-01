@@ -15,13 +15,13 @@ jobs:
       id: cache-pip
       with:
         path: env/
-        key: ${{ runner.os }}-pip-v1
+        key: ${{ runner.os }}-pip-v2
         restore-keys: ""
     - name: Create venv and Install dependencies
       if: steps.cache-pip.outputs.cache-hit != 'true'
       run: |
         python3 -m venv env
-        env/bin/pip3 install mkdocs mkdocs-material
+        env/bin/pip3 install mkdocs mkdocs-material mdx_truly_sane_lists
     - name: Prepare build source
       run: |
         mkdir -p docs/
