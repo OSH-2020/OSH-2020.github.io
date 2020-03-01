@@ -14,5 +14,5 @@ markdown_extensions:
   - markdown.extensions.def_list
 
 nav:
-  - 首页: index.md
-  - FAQ: faq/index.md
+  - 首页: README.md
+  - FAQ: faq/README.md
