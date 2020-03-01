@@ -19,7 +19,8 @@ markdown_extensions:
 
 nav:
   - 首页: README.md
-  - Lab 1: lab-1/README.md
+  - 实验一:
+    - 介绍: lab-1/README.md
     - Linux 的安装与使用: lab-1/linux/README.md
     - 学习使用 Git: lab-1/git/README.md
     - 学习 GitHub 的简单使用，搭建实验私有仓库: lab-1/github/README.md
