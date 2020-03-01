@@ -39,7 +39,7 @@ qemu-system-x86_64 -kernel linux-5.4.22/arch/x86_64/boot/bzImage -initrd ramdisk
 - 程序 2: 向串口输出一条信息。此程序依赖 `/dev/ttyS0` 设备文件。
 - 程序 3: 在 TTY 中使用 Framebuffer 显示一张图片。需要 800x600 32ppm 的 VGA 设置。此程序依赖 `/dev/fb0` 设备文件。
 
-你需要做的是：编写一个 `init` 程序，执行这三个程序。下载链接 [TBD]。具体的要求见实验要求。
+你需要做的是：编写一个 `init` 程序，执行这三个程序。具体的要求见介绍页面。
 
 为了能够得到正确的结果，你的 QEMU 命令需要将串口设置为「标准输入输出」(`-serial stdio`)，并且使用内核参数通知内核设置正确的图形分辨率与颜色位数 (`-append 'vga=0x343'`)。
 
