@@ -33,6 +33,11 @@ Linux 发行版数量众多（见参考资料 1），其中部分较为主流的
 * [VMware Workstation](http://www.vmware.com/products/workstation.html) （商业软件，支持 Windows, Linux）
 * [VMware Player](http://www.vmware.com/products/player.html) （商业软件，非商业用途免费，支持 Windows, Linux）
 
+如果你想要在虚拟机中安装 Linux，这里有两篇博客可以参考：
+
+- [在 Windows 下使用 VMware Workstation 安装 Ubuntu](https://ibugone.com/p/15-cn)（另有[英文版](https://ibugone.com/p/15)）
+- [在 macOS 下使用 VMware Fusion 安装 Ubuntu](https://blog.taoky.moe/2019-02-23/installing-os-on-vm.html)
+
 ### 桌面环境
 
 常见的桌面环境：
