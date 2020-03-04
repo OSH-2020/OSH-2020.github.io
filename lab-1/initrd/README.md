@@ -115,7 +115,7 @@ fakeroot
 
 ```shell
 mknod dev/ttyS0 c 4 64
-mknod dev/fb c 29 0
+mknod dev/fb0 c 29 0
 find . | cpio --quiet -H newc -o | gzip -9 -n > ../initrd.cpio.gz
 ```
 
