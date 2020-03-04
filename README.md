@@ -9,6 +9,7 @@
 
 ## Announcements
 
+- Mar 4, 2020: 请各组根据[文档](x/)创建大作业仓库。
 - Mar 1, 2020: [实验一](lab-1/)已发布。
 - Feb 15, 2020: 课程交流 QQ 群组：1055162953。
 - Feb 15, 2020: Welcome to Operating Systems (H)!
