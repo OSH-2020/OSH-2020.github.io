@@ -14,23 +14,23 @@ jobs:
       uses: actions/cache@v1
       id: cache-pip
       with:
-        path: env/
+        path: ~/.cache/pip
         key: ${{ runner.os }}-pip-v2
-        restore-keys: ""
-    - name: Create venv and Install dependencies
+        restore-keys: |
+          ${{ runner.os }}-pip-
+    - name: Install dependencies
       if: steps.cache-pip.outputs.cache-hit != 'true'
       run: |
-        python3 -m venv env
-        env/bin/pip3 install mkdocs mkdocs-material mdx_truly_sane_lists
+        pip3 install mkdocs mkdocs-material mdx_truly_sane_lists
     - name: Prepare build source
       run: |
         mkdir -p docs/
         find -mindepth 1 -maxdepth 1 -not -name docs -print0 | xargs -0rI % mv % docs/
-        (cd docs/; mv .git .github env mkdocs.yml ../)  # Move some stuff back
+        (cd docs/; mv .git .github mkdocs.yml ../)  # Move some stuff back
         #find docs/ -name README.md -print0 | xargs -0r rename.ul README.md index.md
     - name: Build docs
       run: |
-        env/bin/mkdocs -v build
+        mkdocs -v build
         : > site/.nojekyll
     - name: Deploy to GitHub Pages
       run: |
