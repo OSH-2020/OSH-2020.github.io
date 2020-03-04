@@ -1,6 +1,6 @@
 # 大作业
 
-请组长点击 [Link](https://classroom.github.com/g/l8Sn_mUc) 创建大作业仓库，并邀请组员加入，将大作业有关的各种记录，文档存放在其中。
+请各位同学点击 [Link](https://classroom.github.com/g/l8Sn_mUc) 创建或者加入大作业项目，将大作业有关的各种记录、文档存放在仓库中。
 
 每个组的仓库需包含 `README.md` 文件，包含组员名单，具体格式及其余内容自定。
 
