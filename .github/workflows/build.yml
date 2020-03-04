@@ -15,7 +15,7 @@ jobs:
       id: cache-pip
       with:
         path: ~/.cache/pip
-        key: ${{ runner.os }}-pip-v2
+        key: ${{ runner.os }}-pip-v3
         restore-keys: |
           ${{ runner.os }}-pip-
     - name: Install dependencies
