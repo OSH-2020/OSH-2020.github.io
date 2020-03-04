@@ -20,6 +20,7 @@ markdown_extensions:
 
 nav:
   - 首页: README.md
+  - 大作业: x/README.md
   - 实验一:
     - 介绍: lab-1/README.md
     - Linux 的安装与使用: lab-1/linux/README.md

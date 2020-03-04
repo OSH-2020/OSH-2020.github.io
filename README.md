@@ -9,7 +9,9 @@
 
 ## Announcements
 
+- Mar 1, 2020: [实验一](lab-1/)已发布。
 - Feb 15, 2020: 课程交流 QQ 群组：1055162953。
+- Feb 15, 2020: Welcome to Operating Systems (H)!
 
 ## Coursework
 
@@ -23,7 +25,7 @@
 
 | No   | Date   | Task         | Due          |
 | ---- | ------ | ------------ | ------------ |
-| #0   | -      | [大作业](.)   | -            |
+| #0   | -      | [大作业](x/) | -            |
 | #1   | Mar 2  | [Lab 1](lab-1/) | 23:00, Sunday, Mar 22 |
 
 ## Resources
