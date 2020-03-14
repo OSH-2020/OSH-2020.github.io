@@ -18,7 +18,7 @@ make menuconfig
 
 可以对内核的详细选项进行配置。为了完成此次实验，你需要在这里对内核进行缩减。当然，对不熟悉 Linux 的同学我们不建议在第一次编译时这么做。
 
-注意：为了成功运行之后的测试程序 3，在 `defconfig` 的基础上需要在 `menuconfig` 的时候开启 Device Drivers -> Graphics support -> Frame buffer Devices -> Support for frame buffer devices -> VESA VGA graphics support。
+**注意：为了成功运行之后的测试程序 3，在 `defconfig` 的基础上需要在 `menuconfig` 的时候开启 Device Drivers -> Graphics support -> Frame buffer Devices -> Support for frame buffer devices -> VESA VGA graphics support。**
 
 ```shell
 make bzImage
