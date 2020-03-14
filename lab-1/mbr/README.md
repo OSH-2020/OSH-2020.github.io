@@ -57,3 +57,4 @@ qemu-system-x86_64 -hda example
 ## 参考资料
 
 1. [x86 Assembly Guide](https://www.cs.virginia.edu/~evans/cs216/guides/x86.html)
+2. [NASM Tutorial](https://cs.lmu.edu/~ray/notes/nasmtutorial/)
