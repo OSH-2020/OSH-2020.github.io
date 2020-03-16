@@ -1,4 +1,4 @@
-site_name: OS (H) 2020 课程主页
+site_name: Operating Systems (H) 2020 Spring
 repo_name: OSH-2020/OSH-2020.github.io
 repo_url: https://github.com/OSH-2020/OSH-2020.github.io
 
@@ -29,4 +29,5 @@ nav:
     - 编译 Linux 内核并在 QEMU 中测试: lab-1/kernel/README.md
     - 构建初始内存盘 (initrd, init ram disk): lab-1/initrd/README.md
     - 使用汇编语言，编写 x86 裸金属 (bare-metal) 程序: lab-1/mbr/README.md
+  - 实验二: lab-2/README.md
   - FAQ: faq/README.md
