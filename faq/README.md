@@ -1,3 +1,27 @@
 # 常问问题
 
-暂无
+## 实验一
+
+**Q1: 为什么我提交的内核用 `ls -l` 看大小小得不正常？为什么我无法运行我提交的内核？……**
+
+A1: 在提交 `bzImage` 的时候需要注意：**不要提交软链接**。`arch/x86_64/boot/bzImage` 是一个指向 `arch/x86/boot/bzImage` 的软链接，如果提交的是软链接，我们会无法找到你实际编译的内核文件。
+
+**Q2: 下载内核源代码怎么这么慢？**
+
+A2: 如果你遇到了网络问题，可以从[科大镜像站](https://mirrors.ustc.edu.cn/kernel.org/linux/kernel/v5.x/linux-5.4.22.tar.xz)或者[清华 TUNA 镜像站](https://mirrors.tuna.tsinghua.edu.cn/kernel/v5.x/linux-5.4.22.tar.xz)下载。
+
+**Q3: 为什么只放 `1` 和 `init` 两个文件，`init` 里写 `system("/1");` 会出错？为什么写 `execv()`，却只运行了第一个程序？**
+
+A3: 你需要阅读文档（`man system`, `man execv`）来理解库函数做的事情。对于这两个问题，`DESCRIPTION` 一节都可以看到答案。
+
+**Q4: 我可以在运行程序 3 后把屏幕弄花吗？**
+
+A4: 可以，只要不 kernel panic。
+
+**Q5: 我不想使用 "0x046c" 这种方法计时。我可以使用其他的方式吗？**
+
+A5: 可以。
+
+**Q6: 实验报告有模板吗？**
+
+A6: 报告要点齐全即可，不需要写成长篇大论，行文格式没有强制的要求。
