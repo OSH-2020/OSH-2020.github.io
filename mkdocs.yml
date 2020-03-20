@@ -18,6 +18,10 @@ markdown_extensions:
   - toc:
       permalink: true
 
+extra_css:
+  # Borrow CSS from Linux 101
+  - 'https://101.ustclug.org/css/extra.css'
+
 nav:
   - 首页: README.md
   - 大作业: x/README.md
