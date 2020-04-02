@@ -30,7 +30,7 @@ jobs:
       run: |
         mkdocs -v build
         : > site/.nojekyll
-        printf osh.ibugone.com > site/CNAME
+        #printf osh.ibugone.com > site/CNAME
     - name: Deploy to GitHub Pages
       run: |
         git clone --depth=1 --branch=master --single-branch --no-checkout \
