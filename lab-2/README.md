@@ -202,9 +202,9 @@ exit_group(0)                           = ?
 
 ## 其他说明
 
-本实验可以使用 C 或 C++ 语言完成，如果需要使用其他语言请先询问助教。
+本实验可以使用 C, C++ 或 Rust 语言完成，如果需要使用其他语言请先询问助教。（注：不推荐 Rust，原因见 [FAQ](../faq/README.md)）
 
-本实验可以使用 libc, libstdc++, libm 等 C/C++ 语言常用库。如果你愿意，你也可以使用 readline 和 ncurses 等 Linux 程序常用库。使用此处没有列出的库前请询问助教。
+本实验可以使用 libc, libstdc++, libm 以及 iostream, STL 等 C/C++ 语言标准和常用库。如果你愿意，你也可以使用 readline 和 ncurses 等 Linux 程序常用库。使用此处没有列出的库前请询问助教。
 
 ### 关于 Makefile 的解释
 
