@@ -35,4 +35,6 @@ nav:
     - 使用汇编语言，编写 x86 裸金属 (bare-metal) 程序: lab-1/mbr/README.md
   - 实验二: lab-2/README.md
   - 实验三: lab-3/README.md
+  - 实验四:
+    - 介绍: lab-4/README.md
   - FAQ: faq/README.md
