@@ -39,7 +39,7 @@
 | #2   | -  | [大作业-调研报告](x/) | 不晚于可行性报告提交。建议在 23:00, Sunday, Mar 22 前完成。 |
 | #3   | -  | [大作业-可行性报告](x/) | 23:00, Sunday, Mar 29 |
 | #4   | Mar 20 | [Lab 2](lab-2/) | 23:00, Sunday, Apr 12 |
-| #5   | Apr 10 | [Lab 3](lab-3/) | 23:00, last day of Labor Day |
+| #5   | Apr 10 | [Lab 3](lab-3/) | 23:00, Tuesday, May 5 |
 | #6   | May  1 | [Lab 4](lab-4/) | 23:00, Sunday, May 31 |
 
 ## Resources
