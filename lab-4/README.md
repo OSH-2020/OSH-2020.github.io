@@ -13,7 +13,7 @@
 
 你需要一个 C 编译器和最基本的 C 语言库，相信你已经在前几个实验中使用熟练了，因此略过。
 
-Linux 容器的典型实现使用了至少五种特性：[命名空间（namespaces）][namespaces.7]、[`pivot_root`][pivot_root.2]、[能力（capabilities）][capabilities.7]、[SecComp（Secure Computing）][seccomp.2]和[Cgroup（Control Groups）][cgroups.7]
+Linux 容器的典型实现使用了至少五种特性：[命名空间（namespaces）][namespaces.7]、[`pivot_root`][pivot_root.2]、[能力（capabilities）][capabilities.7]、[SecComp（Secure Computing）][seccomp.2]和 [Cgroup（Control Groups）][cgroups.7]
 
   [namespaces.7]: http://man7.org/linux/man-pages/man7/namespaces.7.html
   [pivot_root.2]: http://man7.org/linux/man-pages/man2/pivot_root.2.html
