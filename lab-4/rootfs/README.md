@@ -18,7 +18,7 @@ LXC 提供了多种操作系统镜像，你可以从 <https://us.images.linuxcon
 
 下载到的打包 rootfs 文件只需要解压到一个新的目录即可：
 
-```
+```shell
 mkdir rootfs/
 cd rootfs/
 tar zxf ../rootfs.tar.gz  # 或 tar Jxf ../rootfs.tar.xz
