@@ -37,4 +37,10 @@ nav:
   - 实验三: lab-3/README.md
   - 实验四:
     - 介绍: lab-4/README.md
+    - 准备 rootfs: lab-4/rootfs/README.md
+    - 挂载文件系统: lab-4/mounts/README.md
+    - 使用 pivot_root: lab-4/pivot_root/README.md
+    - 限制 capabilities: lab-4/capabilities/README.md
+    - 过滤系统调用: lab-4/seccomp/README.md
+    - 限制系统资源: lab-4/cgroup/README.md
   - FAQ: faq/README.md
