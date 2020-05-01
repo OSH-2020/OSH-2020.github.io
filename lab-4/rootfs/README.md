@@ -47,6 +47,14 @@ dd if=/dev/sda of=test bs=64k count=1  # 尝试访问设备文件
 echo $$  # 检查 shell 本身的 PID
 ```
 
+如果你使用 systemd-nspawn 时遇到了下面这个报错:
+
+```text
+Failed to read machine ID from container image: Invalid argument
+```
+
+请向容器镜像中的 `/etc/machine-id` 文件中写入 `0123456789abcdef0123456789abcdef`，然后重新尝试运行.
+
 ### 使用 systemd-nspawn 启动一个容器
 
 与 chroot 不同，systemd-nspawn 作为一个完整的容器实现，是可以启动容器中的操作系统的。方便起见，这一步推荐使用 **LXC 镜像**。
