@@ -47,13 +47,15 @@ dd if=/dev/sda of=test bs=64k count=1  # 尝试访问设备文件
 echo $$  # 检查 shell 本身的 PID
 ```
 
-如果你使用 systemd-nspawn 时遇到了下面这个报错:
+!!! note "错误处理"
 
-```text
-Failed to read machine ID from container image: Invalid argument
-```
+    如果你使用 systemd-nspawn 时遇到了下面这个报错:
 
-请向容器镜像中的 `/etc/machine-id` 文件中写入 `0123456789abcdef0123456789abcdef`，然后重新尝试运行.
+    ```text
+    Failed to read machine ID from container image: Invalid argument
+    ```
+
+    请向容器镜像中的 `/etc/machine-id` 文件中写入 `0123456789abcdef0123456789abcdef`，然后重新尝试运行.
 
 ### 使用 systemd-nspawn 启动一个容器
 
