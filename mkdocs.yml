@@ -38,6 +38,7 @@ nav:
   - 实验四:
     - 介绍: lab-4/README.md
     - 准备 rootfs: lab-4/rootfs/README.md
+    - 隔离命名空间: lab-4/namespaces/README.md
     - 挂载文件系统: lab-4/mounts/README.md
     - 使用 pivot_root: lab-4/pivot_root/README.md
     - 限制 capabilities: lab-4/capabilities/README.md
