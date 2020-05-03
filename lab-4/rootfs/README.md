@@ -73,7 +73,7 @@ echo $$  # 检查 shell 本身的 PID
 
 ```shell
 gcc -o lab4 main.c
-./main rootfs/ /bin/bash
+./lab4 rootfs/ /bin/bash
 ```
 
 这时候你就能看到一个“容器”中的 shell 了。当然了，这里的“容器”加上了双引号是因为它仅仅是一个 chroot 程序，因此接下来的任务就是对这个程序进行修改升级（你也可以选择自己从头编写一个）。
@@ -88,6 +88,8 @@ gcc -o lab4 main.c
 ```c
 #include <stdio.h>
 #include <unistd.h>
+#include <sys/types.h> // For wait(2)
+#include <sys/wait.h>  // For wait(2)
 
 const char *usage =
 "Usage: %s <directory> <command> [args...]\n"
