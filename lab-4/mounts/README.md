@@ -92,7 +92,7 @@ int mount(const char *source, const char *target,
 
 请确保你在第一步完成了对挂载命名空间（CLONE\_NEWNS）的隔离，再进行这一步操作。
 
-为了保证所有对现有挂载点的修改不会传播（propagate）到主机中，首先需要将 rootfs 递归地重新挂载为私有（提示：`mount --make-rprivate`），然后再进行容器内的挂载操作等。
+在进行了下一节 pivot\_root 中提到的对 rootfs 进行 bind mount 后，为了保证所有对现有挂载点的修改不会传播（propagate）到主机中，首先需要将 rootfs 递归地重新挂载为私有（提示：`mount --make-rprivate`），然后再进行容器内的挂载操作等。
 
 ## 实验要求
 
