@@ -55,7 +55,11 @@ echo $$  # 检查 shell 本身的 PID
     Failed to read machine ID from container image: Invalid argument
     ```
 
-    请向容器镜像中的 `/etc/machine-id` 文件中写入 `0123456789abcdef0123456789abcdef`，然后重新尝试运行.
+    请向容器镜像中的 `/etc/machine-id` 文件写入一个 machine ID 字符串（见下），然后重新尝试运行.
+
+    ```shell
+    $ systemd-id128 new > etc/machine-id
+    ```
 
 ### 使用 systemd-nspawn 启动一个容器
 
