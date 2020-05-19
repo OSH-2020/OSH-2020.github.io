@@ -58,6 +58,12 @@ echo $$  # 检查 shell 本身的 PID
     请向容器镜像中的 `/etc/machine-id` 文件写入一个 machine ID 字符串（见下），然后重新尝试运行.
 
     ```shell
+    systemd-machine-id-setup --root=容器的rootfs路径
+    ```
+
+    对于 Ubuntu 20.04 系统，也可以使用新的命令
+
+    ```shell
     $ systemd-id128 new > etc/machine-id
     ```
 
