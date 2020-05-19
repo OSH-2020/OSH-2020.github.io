@@ -38,7 +38,7 @@ Linux 容器的典型实现使用了至少五种特性：[命名空间（namespa
 - [使用 pivot\_root(2) 替代 chroot(2) 完成容器内根文件系统的切换](pivot_root/README.md)
 - [使用 libcap 为容器缩减不必要的能力（capabilities）](capabilities/README.md)
 - [使用 libseccomp 对容器中的系统调用进行白名单过滤](seccomp/README.md)
-- [使用 cgroup 限制容器中的 CPU、内存、进程数与 I/O 优先级](cgroup/README.md)
+- [使用 cgroup 限制容器中的 CPU、内存与进程数](cgroup/README.md)
 
 ## 实验要求
 
@@ -64,7 +64,7 @@ Linux 容器的典型实现使用了至少五种特性：[命名空间（namespa
 - 使用 pivot\_root(2) 替代 chroot(2) 完成容器内根文件系统的切换，并从主机上隐藏容器的挂载点（4 分）
 - 为容器中的进程移除一些能力（drop capabilities）（2 分）
 - 使用 SecComp 限制容器中能够进行的系统调用（2 分）
-- 使用 cgroup 限制容器中的系统资源使用，并在容器中按要求挂载四个 cgroup 控制器（2 分）
+- 使用 cgroup 限制容器中的系统资源使用，并在容器中按要求挂载三个 cgroup 控制器（2 分）
 - 完成思考题（2 分）
 
 本实验可以使用 C / C++ / Go / Rust 语言完成，推荐使用 C 或 C++ 语言。使用其他编程语言前请询问助教。方便起见，你的程序应当支持下面的命令行参数：
@@ -73,7 +73,7 @@ Linux 容器的典型实现使用了至少五种特性：[命名空间（namespa
 ./lab4 <rootfs> <command> [args...]
 ```
 
-即 `argv[1]` 表示 rootfs 的路径（没有 / 结尾），`argv[2]` 开始表示作为容器中的 PID 1 运行的程序及参数，可以假设 argc ≥ 3（你可以在 argc < 3 时直接报错）。
+即 `argv[1]` 表示 rootfs 的路径（没有 / 结尾），`argv[2]` 开始表示作为容器中的 PID 1 运行的程序及参数，可以假设 argc ≥ 3（在 argc < 3 时你可以选择直接报错，但请尽量避免异常退出）。
 
 除了运行容器中的第一个程序（即容器中的 PID 1，应由命令行给出）之外，你的程序不应该调用其他程序来完成任何功能。你可以将「调用其他程序」理解为「除了运行目标命令之外的 execve 系统调用」。请注意，一些库函数（如 system(3) 和 popen(3) 等）都会调用额外的程序，这些调用过程通常包含了 fork+execve 的系统调用。
 

@@ -96,7 +96,7 @@ int mount(const char *source, const char *target,
 
 ## 实验要求
 
-请使用 mount(2) 为你的容器在 `/dev`, `/proc`, `/sys` 和 `/tmp` 位置各挂载一个合适的文件系统，并在 `/sys/fs/cgroup` 下挂载指定的四类 cgroup 控制器（见 [cgroup 一节](../cgroup/README.md)）。
+请使用 mount(2) 为你的容器在 `/dev`, `/proc`, `/sys` 和 `/tmp` 位置各挂载一个合适的文件系统，并在 `/sys/fs/cgroup` 下挂载指定的三类 cgroup 控制器（见 [cgroup 一节](../cgroup/README.md)）。
 
 注意**将 `/sys` 挂载为只读**（这是 systemd 的容器界面的一个要求，这里也作为本实验的要求）。
 
