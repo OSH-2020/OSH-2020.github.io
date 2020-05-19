@@ -61,7 +61,7 @@ echo $$  # 检查 shell 本身的 PID
     systemd-machine-id-setup --root=容器的rootfs路径
     ```
 
-    对于 Ubuntu 20.04 系统，也可以使用新的命令
+    对于 Ubuntu 20.04（或其他任何运行 systemd 240 或以上版本的系统），也可以使用新的命令
 
     ```shell
     $ systemd-id128 new > etc/machine-id
