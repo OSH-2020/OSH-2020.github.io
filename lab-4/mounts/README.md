@@ -84,7 +84,7 @@ int mount(const char *source, const char *target,
           const void *data);
 ```
 
-不难猜到，mount(2) 的前两个参数对应 mount(8) 的最后两个参数，而 mountflags 则对应**部分**挂载选项，如只读 / 可写，以及 `nosuid`, `nodev`, `noexec` 等选项。请自己查阅资料，了解最后一个参数 `data` 的意义。
+不难猜到，mount(2) 的前两个参数对应 mount(8) 的最后两个参数，而 mountflags 则对应**部分**挂载选项，如只读 / 可写，以及 `nosuid`, `nodev`, `noexec` 等选项。请自己查阅资料，了解最后一个参数 `data` 的意义（后面可能会用到）。
 
 与 mount(2) 类似，umount(2) 及 umount2(2) 两个系统调用可以用于卸载文件系统。请自行查阅手册了解它们的用法。
 
@@ -101,6 +101,8 @@ int mount(const char *source, const char *target,
 注意**将 `/sys` 挂载为只读**（这是 systemd 的容器界面的一个要求，这里也作为本实验的要求）。
 
 你可以自行决定是否为其他路径挂载恰当的文件系统（如 `/run`），或从主机系统以 bind 方式挂载一些目录。
+
+挂载完成后，请在 `/dev` 下创建一些设备节点，例如 `null`, `zero`, `urandom` 等。建议将 `/dev/tty` 也创建，否则部分应用程序可能无法正常工作（如 less 和 Vim 等）。
 
 下一节的 pivot\_root 后你需要使用 umount(2) 从容器中卸载主机系统的根文件系统，以将主机从容器中“隐藏”。这一步操作将在下一节中详细讨论。
 
