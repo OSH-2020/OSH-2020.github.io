@@ -33,6 +33,8 @@ sudo apt install libcap-ng-dev
 
 如果你使用了 libcap，那么编译时需要加上链接参数 `-lcap`；同理，对于 libcap-ng，需要加上链接参数 `-lcap-ng`。
 
+提示：你可能需要阅读 `man 7 capabilities` 了解 capability set 的相关资料。此外，`libcap` 附带一个命令行工具 `capsh`，可以帮助你检查能力设置是否正确。
+
 ## 我需要限制哪些能力？
 
 在实验中，我们使用**白名单**的方式限制能力，即丢弃除白名单中能力以外的其他所有能力。白名单参考 [Docker 的默认配置](https://docs.docker.com/engine/reference/run/#runtime-privilege-and-linux-capabilities)如下：
