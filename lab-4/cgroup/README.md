@@ -132,6 +132,24 @@ rmdir /sys/fs/cgroup/memory/test
 cat /sys/fs/cgroup/memory/test/cgroup.procs > /sys/fs/cgroup/memory/cgroup.procs
 ```
 
+## 在容器中挂载 cgroup 控制器
+
+挂载 cgroup 控制器与挂载其他文件系统并没有太大区别，但是需要用到 [mount 一页](../mounts/README.md) 中的一个小细节（提示：请自己查阅资料）。
+
+挂载 cgroup 控制器时需要注意的一点是，cgroup namespace 中看到的「根 cgroup 结构」是在**创建命名空间时**进程所处的 cgroup 树中的位置，而不是**挂载时**所处的位置。例如：
+
+```shell
+echo 8888 > /sys/fs/cgroup/example/test/cgroup.procs
+# 进程 8888 创建了一个新 cgroup namespace
+echo 8888 > /sys/fs/cgroup/example/test2/cgroup.procs
+```
+
+此时若进程 8888 挂载了 example cgroup 控制器，那么挂载点显示的内容为 `example:/test` 的内容，而不是 `example:/test2` 的内容。
+
+你需要正确处理容器「看到的根 cgroup 结构」。判断实现正确的一个方法是，在容器内部查看 `/proc/1/cgroup`，若上面涉及到的 3 个控制器对应的行都以 `:/` 结尾，那么可以基本认为是正确的。
+
+如果你认为基于 clone(2) 的命名空间隔离和路径处理过于复杂，可以回到[《命名空间》这一页](../namespaces/README.md)看看有没有其他的想法。
+
 ## 实验要求
 
 请为你的容器限制以下内容：
@@ -142,6 +160,6 @@ cat /sys/fs/cgroup/memory/test/cgroup.procs > /sys/fs/cgroup/memory/cgroup.procs
 - 设置 CPU 配额（`cpu.shares`）为 256
 - 设置 PID 数量上限为 64
 
-同时，请在容器中挂载上面涉及到的 3 个 cgroup 结构，以使得容器中能够正常使用它们。
+同时，请在容器中挂载上面涉及到的 3 个 cgroup 控制器，以使得容器中能够正常使用它们。你需要保证挂载的控制器看到的「根 cgroup」是容器所在的结构（即正确隔离了 cgroup namespace）。
 
 请确保当你的容器退出时你创建的子 cgroup 也能够正确删除。

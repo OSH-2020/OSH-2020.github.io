@@ -19,7 +19,7 @@
 
 ## 使用 clone(2) 替代 fork(2) 创建子进程
 
-Linux 中隔离命名空间的系统调用有两个，[unshare(2)][unshare.2] 与 [clone(2)][clone.2]。前者*多数时候*用于在当前进程中创建新命名空间，且对不同命名空间（clone flags）的处理方式略有不同，容易搞混，因此我们使用 clone 系统调用在创建子进程的同时直接将子进程的各种命名空间隔离。
+Linux 中隔离命名空间的系统调用有两个，[unshare(2)][unshare.2] 与 [clone(2)][clone.2]。前者*多数时候*用于在当前进程中创建新命名空间，且两者对不同命名空间（clone flags）的处理方式略有不同，容易搞混，因此我们使用 clone 系统调用，在创建子进程的同时直接将子进程的各种命名空间隔离。
 
 !!! question "你知道吗？"
 
@@ -80,7 +80,7 @@ void *child_stack_start = child_stack + STACK_SIZE;
 
   [mmap.2]: http://man7.org/linux/man-pages/man2/mmap.2.html
 
-## 将子进程隔离至新的命名空间中
+## 将子进程隔离至新的命名空间中 (clone)
 
 这一步非常简单，只需要在调用 clone 时的 flags 参数中通过按位或的方式添加一个或多个本文最开头给出的 clone flags，此时生成的子进程就在新的命名空间中了。例如：
 
@@ -88,6 +88,12 @@ void *child_stack_start = child_stack + STACK_SIZE;
 -int ch = clone(child, child_stack_start, SIGCHLD, name);
 +int ch = clone(child, child_stack_start, CLONE_NEWPID | SIGCHLD, name);
 ```
+
+## 将进程隔离至新的命名空间中 (unshare)
+
+上面提到，隔离命名空间的另一个选择是 unshare。与 clone 的主要不同点是，unshare 在**当前进程**中创建隔离的命名空间（），在调用 `unshare(CLONE_NEWXXX)` 完成之后，当前进程就位于新的命名空间中了。如果你在后面的实验步骤中遇到了困难，可以尝试将一个或多个命名空间改为使用 unshare 隔离。
+
+\* 这里有一个例外，那就是 `CLONE_NEWPID`。调用 `unshare(CLONE_NEWPID)` 后，当前进程**不会**位于新的 PID 命名空间中，而是在此之后的第一个 fork 出来的子进程。
 
 ## 参考资料
 
