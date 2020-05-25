@@ -14,7 +14,7 @@
 
 [Linux Containers](https://linuxcontainers.org/)（LXC）是一个系统容器实现，其使用 Linux 的容器技术运行完整的 Linux 子系统。由于容器直接使用主机的内核，没有了虚拟化中间层，与传统虚拟机（KVM, VMware）相比更轻便。
 
-LXC 提供了多种操作系统镜像，你可以从 <https://us.images.linuxcontainers.org/images/> 直接选择下载（请下载 amd64 架构下 `default` 中的 `rootfs.tar.gz` 或 `rootfs.tar.xz` 文件）。不同的 Linux 发行版镜像不影响本实验的后续内容，但如果你不了解它们的区别的话，我们推荐 [Ubuntu 18.04](https://images.linuxcontainers.org/images/ubuntu/bionic/amd64/default/)、[Ubuntu 20.04](https://images.linuxcontainers.org/images/ubuntu/focal/amd64/default/) 或 [Debian Buster](https://images.linuxcontainers.org/images/debian/buster/amd64/default/) 的镜像。
+LXC 提供了多种操作系统镜像，你可以从 <https://images.linuxcontainers.org/images/> 直接选择下载（请下载 amd64 架构下 `default` 中的 `rootfs.tar.gz` 或 `rootfs.tar.xz` 文件）。不同的 Linux 发行版镜像不影响本实验的后续内容，但如果你不了解它们的区别的话，我们推荐 [Ubuntu 18.04](https://images.linuxcontainers.org/images/ubuntu/bionic/amd64/default/)、[Ubuntu 20.04](https://images.linuxcontainers.org/images/ubuntu/focal/amd64/default/) 或 [Debian Buster](https://images.linuxcontainers.org/images/debian/buster/amd64/default/) 的镜像。
 
 下载到的打包 rootfs 文件只需要解压到一个新的目录即可：
 
@@ -55,10 +55,10 @@ echo $$  # 检查 shell 本身的 PID
     Failed to read machine ID from container image: Invalid argument
     ```
 
-    请向容器镜像中的 `/etc/machine-id` 文件写入一个 machine ID 字符串（见下），然后重新尝试运行.
+    请向容器镜像中的 `/etc/machine-id` 文件写入一个 machine ID 字符串（使用以下命令），然后重新尝试运行.
 
     ```shell
-    systemd-machine-id-setup --root=容器的rootfs路径
+    $ systemd-machine-id-setup --root=容器的rootfs路径
     ```
 
     对于 Ubuntu 20.04（或其他任何运行 systemd 240 或以上版本的系统），也可以使用新的命令
