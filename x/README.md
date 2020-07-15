@@ -52,3 +52,21 @@
 ├── README.md           # 上面要求的 README 文件
 └── ...                 # 其他文件（如：源代码等）
 ```
+
+## 结题报告
+
+请各组在规定时间内将结题报告 `conclusion.pdf`（或者 `conclusion.md`）以及在答辩上展示的 slides 提交到大作业仓库：
+
+所有需要提交的文档请按照以下格式提交到 `docs` 文档目录下。
+
+```
+(Git)                   # 大作业仓库根目录
+├── docs                # 文档目录
+│   ├── research.md     #   调研报告（或 research.pdf 等）
+│   ├── feasibility.md  #   可行性研究报告（或 feasibility.pdf 等）
+│   ├── conclusion.md   #   结题报告（或 conclusion.pdf 等）
+│   ├── *.pdf           #   结题答辩展示的 slides（或 *.ppt(x) 格式）
+│   └── files           #   存放资源文件（如：报告中的图片）
+├── README.md           # 上面要求的 README 文件
+└── ...                 # 其他文件（如：源代码等）
+```

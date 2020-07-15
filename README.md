@@ -9,6 +9,8 @@
 
 ## Announcements
 
+- Jul 15, 2020: 请各组在 7 月 22 日（星期三）11:00 前提交大作业的结题报告和展示 slides。
+- Jul 15, 2020: 请将今日答辩结束后的 Peer-Review Score Sheet 使用**邮件**发送给陶柯宇助教。
 - May 23, 2020: [实验四的 cgroup 部分](lab-4/cgroup/)有更新。
 - Apr 30, 2020: [实验四](lab-4/)已发布。
 - Apr 10, 2020: [实验三](lab-3/)已发布。
@@ -43,6 +45,8 @@
 | #4   | Mar 20 | [Lab 2](lab-2/) | 23:00, Sunday, Apr 12 |
 | #5   | Apr 10 | [Lab 3](lab-3/) | 23:00, Tuesday, May 5 |
 | #6   | Apr 30 | [Lab 4](lab-4/) | 23:00, Sunday, May 31 |
+| #7   | Jul 15 | [大作业-结题报告](x/) | 23:00, Wednesday, Jul 22 |
+| #8   | Jul 15 | 所有提交作业/实验最后截止 | 23:59:59, Monday, Aug 10 |
 
 ## Resources
 
